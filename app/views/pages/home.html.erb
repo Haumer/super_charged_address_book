@@ -1,2 +1,96 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+<% @previous_week_reminders.each do |reminder_group| %>
+    <div class="day-reminder-group">
+        <div class="reminder-group-date">
+            <%= reminder_group.last.first.target_date.strftime("%b %d, %Y") %><span class="mini-font"><%= time_distance(Date.today, reminder_group.last.first.target_date, space: true) %></span>
+        </div>
+        <div class="reminder-cards">
+            <% reminder_group.last.each do |reminder| %>
+                <div class="reminder-card">
+                    <div class="full-name">
+                        <%= reminder.contacts.first.full_name %>
+                        <% unless reminder.birthday_reminder %>
+                            <span class="mini-font">every <%= pluralize(reminder.interval, "day") %></span>
+                        <% end %>
+                    </div>
+                    <%= link_to "complete", reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} %>
+                    <% if reminder.actual_date %>
+                        <%= reminder.actual_date.strftime("%b %d, %Y") %>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+<% end %>
+
+<% @this_week_reminders.each do |reminder_group| %>
+    <div class="day-reminder-group">
+        <div class="reminder-group-date">
+            <%= reminder_group.last.first.target_date.strftime("%b %d, %Y") %><span class="mini-font"><%= time_distance(Date.today, reminder_group.last.first.target_date, space: true) %></span>
+        </div>
+        <div class="reminder-cards">
+            <% reminder_group.last.each do |reminder| %>
+                <div class="reminder-card">
+                    <div class="full-name">
+                        <%= reminder.contacts.first.full_name %>
+                        <% unless reminder.birthday_reminder %>
+                            <span class="mini-font">every <%= pluralize(reminder.interval, "day") %></span>
+                        <% end %>
+                    </div>
+                    <%= link_to "complete", reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} %>
+                    <% if reminder.actual_date %>
+                        <%= reminder.actual_date.strftime("%b %d, %Y") %>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+<% end %>
+
+<% @upcoming_reminders.each do |reminder_group| %>
+    <div class="day-reminder-group">
+        <div class="reminder-group-date">
+            <%= reminder_group.last.first.target_date.strftime("%b %d, %Y") %><span class="mini-font"><%= time_distance(Date.today, reminder_group.last.first.target_date, space: true) %></span>
+        </div>
+        <div class="reminder-cards">
+            <% reminder_group.last.each do |reminder| %>
+                <div class="reminder-card">
+                    <div class="full-name">
+                        <%= reminder.contacts.first.full_name %>
+                        <% unless reminder.birthday_reminder %>
+                            <span class="mini-font">every <%= pluralize(reminder.interval, "day") %></span>
+                        <% end %>
+                    </div>
+                    <%= link_to "complete", reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} %>
+                    <% if reminder.actual_date %>
+                        <%= reminder.actual_date.strftime("%b %d, %Y") %>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+<% end %>
+
+<style>
+.day-reminder-group {
+    border-radius: 4px;
+    border-top: 4px solid #4BB3FD;
+    margin: 4px;
+    background: white;
+}
+.reminder-group-date {
+    font-size: 24px;
+}
+
+.reminder-cards {
+    width: 100%;
+    display: flex; 
+    flex-wrap: wrap;
+}
+
+.reminder-card {
+    width: 33%;
+
+}
+
+</style>

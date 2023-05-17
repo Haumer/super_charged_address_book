@@ -1,0 +1,53 @@
+<div class="heatmap">
+    <div class="dots">
+        <% @days.each do |day| %>
+            <div class="day <%= 'today' if day == Date.today %>">
+                <div class="dot first-dot"></div>
+                <% if @reminders[day] %>
+                    <% @reminders[day].count.times do  %>
+                        <div class="dot"></div>
+                    <% end %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+</div>
+
+<style>
+.heatmap {
+    height: 100px;
+}
+.dots {
+    display: flex;
+    align-items: flex-end;
+    height: 100px;
+}
+.dot {
+    height: 24px;
+    width: calc((100vw - 2px)/ 43);
+    background-color: red;
+}
+.dot.first-dot {
+    height: 4px;
+    border-radius: 0px !important;
+}
+
+.day {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100%;
+}
+.day > .dot:last-of-type {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.day.today {
+    box-sizing: border-box;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    align-items: flex-end;
+    display: flex;
+}
+</style>

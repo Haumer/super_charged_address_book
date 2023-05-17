@@ -115,6 +115,8 @@ GEM
       sassc (~> 2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    groupdate (6.2.1)
+      activesupport (>= 5.2)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -259,6 +261,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-sass (~> 6.1)
+  groupdate
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

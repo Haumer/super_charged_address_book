@@ -10,9 +10,71 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_12_125701) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_17_153910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contact_reminders", force: :cascade do |t|
+    t.bigint "reminder_id", null: false
+    t.bigint "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_contact_reminders_on_contact_id"
+    t.index ["reminder_id"], name: "index_contact_reminders_on_reminder_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.date "birthday"
+    t.string "phone_number"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "group_contacts", force: :cascade do |t|
+    t.bigint "group_id", null: false
+    t.bigint "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_group_contacts_on_contact_id"
+    t.index ["group_id"], name: "index_group_contacts_on_group_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.integer "interval"
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_groups_on_user_id"
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "target_date"
+    t.date "actual_date"
+    t.integer "interval", default: 30
+    t.boolean "reaccuring", default: true
+    t.boolean "active", default: true
+    t.boolean "contacted", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "birthday_reminder", default: false
+    t.index ["user_id"], name: "index_reminders_on_user_id"
+  end
+
+  create_table "user_contacts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "contact_id", null: false
+    t.boolean "shared"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_user_contacts_on_contact_id"
+    t.index ["user_id"], name: "index_user_contacts_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +88,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_125701) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "contact_reminders", "contacts"
+  add_foreign_key "contact_reminders", "reminders"
+  add_foreign_key "group_contacts", "contacts"
+  add_foreign_key "group_contacts", "groups"
+  add_foreign_key "groups", "users"
+  add_foreign_key "reminders", "users"
+  add_foreign_key "user_contacts", "contacts"
+  add_foreign_key "user_contacts", "users"
 end

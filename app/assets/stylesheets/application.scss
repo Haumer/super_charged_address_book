@@ -10,3 +10,14 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.mini-font {
+    font-size: 10px;
+}
+
+a {
+    text-decoration: none;
+    &:hover {
+        color: inherit;
+    }
+}

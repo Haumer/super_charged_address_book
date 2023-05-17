@@ -1,0 +1,14 @@
+<%= simple_form_for reminder do |f| %>
+    <%= f.input :interval %>
+    <%= f.input :target_date %>
+    <%= f.input :reaccuring %>
+    <%= f.simple_fields_for contact_reminder do |sf| %>
+        <% if pre_selected_contact_id %>
+            <%= sf.association :contact, selected: [current_user.contacts.find(pre_selected_contact_id).full_name, current_user.contacts.find(pre_selected_contact_id).id], collection: current_user.contacts, label_method: :full_name, value_method: :id %>
+        <% else %>
+            <%= sf.association :contact, collection: current_user.contacts, label_method: :full_name, value_method: :id %>
+        <% end %>
+    <% end %>
+    <%= f.submit %>
+<% end %>
+

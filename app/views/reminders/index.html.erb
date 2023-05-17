@@ -1,0 +1,58 @@
+<% @reminder_groups.each do |reminder_name, reminder_group| %>
+    <% if reminder_group[:reminders].count > 0 %>
+        <section class="reminders">
+            <div class="reminder-period">
+                <h3><%= reminder_name.to_s.humanize %><%= display_completed_reminders(reminder_group[:reminders].values.first) %></h3><span class="mini-font m-3"><%= time_period(reminder_group[:from_time], reminder_group[:to_time]) %></span>
+            </div>
+            <div class="day-reminders">
+                <%= render "time_period_section", reminders: reminder_group[:reminders], reminder_name: reminder_name.to_s %>
+            </div>
+        </section>
+    <% elsif reminder_name.to_s == "today" %>
+    <section class="reminders">
+    test
+    </section>
+    <% end %>
+<% end %>
+
+
+<style>
+.reminder-done-btn:hover {
+    color: white;
+    background: #256EFF;
+    opacity: 1;
+    transition: 0.3s ease-in-out;
+}
+.reminder-period {
+    display: flex;
+    align-items: center;
+}
+
+section.reminders {
+    margin: 16px;
+}
+.day-reminders {
+    display: flex;
+    flex-wrap: wrap;
+}
+.day-reminder-group {
+    border-radius: 4px;
+    border-top: 4px solid #4BB3FD;
+    background: white;
+    padding: 16px 4px;
+    margin-bottom: 2px;
+    width: clamp(33%, 50%, 100%);
+}
+.reminder-group-date {
+    font-size: 24px;
+    color: black;
+}
+.reminder-cards {
+    width: 100%;
+    display: flex; 
+    flex-wrap: wrap;
+}
+.reminder-card {
+    width: 33%;
+}
+</style>

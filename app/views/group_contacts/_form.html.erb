@@ -1,0 +1,17 @@
+<%= simple_form_for [contact, group_contact] do |f| %>
+    <div class="group-contact-form d-flex">
+        <%= f.association :group, collection: current_user.groups, label: false %>
+        <div class="small-3 columns">
+            <%= button_tag type: 'submit', class: "success-btn" do %>
+                <i class="fa-solid fa-square-check"></i>
+            <% end %>
+        </div>
+    </div>
+<% end %>
+
+<style>
+.fa-square-check {
+    color: #1EDD88;
+    font-size: 38px;
+}
+</style>

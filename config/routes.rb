@@ -5,4 +5,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  resources :contacts do 
+    resources :group_contacts
+  end
+  resources :groups
+
+  get "heatmap", to: "reminders#heatmap"
+  resources :reminders do
+    resources :contact_reminders
+  end
 end
