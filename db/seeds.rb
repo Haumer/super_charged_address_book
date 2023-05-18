@@ -87,10 +87,10 @@ if Rails.env == "development"
                 reaccuring: true,
                 contacted: false,
                 active: true,
-                target_date: Reminder.next_bday(contact.birthday),
+                target_date: Contact.next_bday(contact.birthday),
                 interval: Reminder.time_distance_in_days(
-                    Reminder.next_bday(contact.birthday), 
-                    Reminder.next_bday(contact.birthday, additional_years: 1)
+                    Contact.next_bday(contact.birthday), 
+                    Contact.next_bday(contact.birthday, additional_years: 1)
                 )
             )
             ContactReminder.create(reminder: reminder, contact: contact)

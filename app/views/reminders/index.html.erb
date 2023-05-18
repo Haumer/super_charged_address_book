@@ -1,58 +1,72 @@
-<% @reminder_groups.each do |reminder_name, reminder_group| %>
-    <% if reminder_group[:reminders].count > 0 %>
-        <section class="reminders">
-            <div class="reminder-period">
-                <h3><%= reminder_name.to_s.humanize %><%= display_completed_reminders(reminder_group[:reminders].values.first) %></h3><span class="mini-font m-3"><%= time_period(reminder_group[:from_time], reminder_group[:to_time]) %></span>
-            </div>
-            <div class="day-reminders">
-                <%= render "time_period_section", reminders: reminder_group[:reminders], reminder_name: reminder_name.to_s %>
-            </div>
-        </section>
-    <% elsif reminder_name.to_s == "today" %>
-    <section class="reminders">
-    test
-    </section>
-    <% end %>
-<% end %>
-
-
-<style>
-.reminder-done-btn:hover {
-    color: white;
-    background: #256EFF;
-    opacity: 1;
-    transition: 0.3s ease-in-out;
-}
-.reminder-period {
-    display: flex;
-    align-items: center;
-}
-
-section.reminders {
-    margin: 16px;
-}
-.day-reminders {
-    display: flex;
-    flex-wrap: wrap;
-}
-.day-reminder-group {
-    border-radius: 4px;
-    border-top: 4px solid #4BB3FD;
-    background: white;
-    padding: 16px 4px;
-    margin-bottom: 2px;
-    width: clamp(33%, 50%, 100%);
-}
-.reminder-group-date {
-    font-size: 24px;
-    color: black;
-}
-.reminder-cards {
-    width: 100%;
-    display: flex; 
-    flex-wrap: wrap;
-}
-.reminder-card {
-    width: 33%;
-}
-</style>
+<div class="reminder-container">
+    <div class="time-periods">
+        <% @time_periods.each_with_index do |reminder_group, index| %>
+            <section class="time-period <%= reminder_group[:css] %>">
+                <div class="time-period-name">
+                    <%= reminder_group[:name] %>    
+                </div>
+                <div class="time-period-reminder">
+                    <div class="time-period-reminders-details <%= reminder_group[:css] %>">
+                        <% if reminder_group[:reminders].values.first %>
+                            <% reminder_group[:reminders].each do |day, reminders| %>
+                                <% reminders.sort_by(&:created_at).each do |reminder| %>
+                                    <div class="reminder">
+                                        <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch}, class: "contacted-link" do %>
+                                            <% if reminder.contacted %>
+                                                <i class="fa-solid fa-square-check"></i>
+                                            <% else %>
+                                                <i class="fa-regular fa-square-check"></i>
+                                            <% end %>
+                                            <% if reminder.birthday_reminder %>
+                                                <i class="fa-solid fa-cake-candles"></i>              
+                                            <% end %>
+                                            <%= reminder.contacts.first.full_name %>
+                                            <% if index > 2 %>
+                                            <span class="mini-font">
+                                                <%= reminder.target_date.strftime("%b %d") %> (<%= time_distance(Date.today, reminder.target_date) %>)
+                                            </span> 
+                                            <% end %>
+                                        <% end %>
+                                    </div>
+                                <% end %>
+                            <% end %>
+                        <% else %>
+                            No reminders
+                        <% end %>
+                    </div>
+                    <% if reminder_group[:css] == "today" %>
+                        <div class="reminder-suggestions">
+                            <div class="cleanup-contacts-suggestions">
+                                Cleanup Address book: <br>
+                                <%= link_to contacts_path, class: "text-link" do %>
+                                    <%= current_user.unassigned_contacts.count %> unassigned contacts, 
+                                <% end %>
+                            </div>
+                            <div class="contact-suggestions">
+                                Contacts without reminders: <br>
+                                <% current_user.contacts_without_active_reminders.sample(3).each_with_index do |contact, index| %>
+                                    <%= link_to new_reminder_path(contact_id: contact), class: "text-link" do %>
+                                        <%= contact.full_name %><% if current_user.contacts_without_active_reminders.sample(3).length == 3 && index == 0 %>,
+                                        <% end %>
+                                    <% end %>
+                                    <% if index == 1 %>
+                                        and
+                                    <% end %>
+                                <% end %>
+                            </div>
+                            <div class="next-birthday">
+                                Next birthday: <br>
+                                <i class="fa-solid fa-cake-candles"></i> <%= current_user.next_contacts_birthday.full_name %>
+                                <% if current_user.next_contacts_birthday.birthday_reminder_set? %>
+                                    (reminder is set!)
+                                <% else %>
+                                    (set a reminder now)
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </section>
+        <% end %>
+    </div>
+</div>

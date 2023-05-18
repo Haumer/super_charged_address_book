@@ -1,10 +1,10 @@
-<% reminders.each do |reminder_group| %>
+<% reminders.each do |day, reminders| %>
     <div class="day-reminder-group">
         <div class="reminder-group-date">
-            <%= reminder_group.last.first.target_date.strftime(time_format(reminder_name)) %><span class="mini-font"><%= time_distance(Date.today, reminder_group.last.first.target_date, space: true) %></span>
+            <%= day.strftime(time_format(reminder_name)) %><span class="mini-font"><%= time_distance(Date.today, day, space: true) %></span>
         </div>
         <div class="reminder-cards">
-            <% reminder_group.last.each do |reminder| %>
+            <% reminders.each do |reminder| %>
                 <div class="reminder-card">
                     <div class="full-name">
                         <%= reminder.contacts.first.full_name %>
