@@ -10,7 +10,7 @@
 
 .contacted-link {
     opacity: 0.7;
-    transition: opacity 0.7s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
     &:hover {
         opacity: 1;
     }
@@ -18,6 +18,11 @@
 
 .text-link {
     text-decoration: underline;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+    &:hover {
+        opacity: 1;
+    }
 }
 
 .reminder-container {
@@ -39,6 +44,10 @@
                 width: 100%;
                 padding: var(--default-padding) 16px;
                 font-size: var(--default-h2-size);
+                &.todays-suggestions {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                }
             }
             .time-period-reminder {
                 padding: var(--default-padding)  16px;
@@ -46,7 +55,7 @@
                 font-size: var(--medium-font-size);
                 .reminder-suggestions {
                     width: 50%;
-                    font-size: var(--mini-font-size);
+                    font-size: var(--medium-font-size);
                     .cleanup-contacts-suggestions,
                     .contact-suggestions {
                         margin-bottom: 8px;
@@ -80,7 +89,7 @@
         margin: 4px;
         width: calc(50% - 8px);
     }
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
         .last-seven-days {
             margin: 4px;
             width: calc(20% - 8px);

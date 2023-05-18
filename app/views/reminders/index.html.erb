@@ -2,9 +2,20 @@
     <div class="time-periods">
         <% @time_periods.each_with_index do |reminder_group, index| %>
             <section class="time-period <%= reminder_group[:css] %>">
-                <div class="time-period-name">
-                    <%= reminder_group[:name] %>    
-                </div>
+                <% if reminder_group[:css] == 'today' %>
+                    <div class="time-period-name todays-suggestions">
+                        <div class="name-title">
+                            <%= reminder_group[:name] %>  
+                        </div>
+                        <div class="todays-suggestions-title">
+                            Todays Suggestions
+                        </div>
+                    </div>
+                <% else %>
+                    <div class="time-period-name">
+                        <%= reminder_group[:name] %>  
+                    </div>
+                <% end %>
                 <div class="time-period-reminder">
                     <div class="time-period-reminders-details <%= reminder_group[:css] %>">
                         <% if reminder_group[:reminders].values.first %>
@@ -31,7 +42,9 @@
                                 <% end %>
                             <% end %>
                         <% else %>
-                            No reminders
+                            <%= link_to new_reminder_path, class: "text-link" do %>
+                                <i class="fa-regular fa-square-plus"></i> add a reminder
+                            <% end %>
                         <% end %>
                     </div>
                     <% if reminder_group[:css] == "today" %>
@@ -39,15 +52,14 @@
                             <div class="cleanup-contacts-suggestions">
                                 Cleanup Address book: <br>
                                 <%= link_to contacts_path, class: "text-link" do %>
-                                    <%= current_user.unassigned_contacts.count %> unassigned contacts, 
+                                    <%= current_user.unassigned_contacts.count %> unassigned contacts 
                                 <% end %>
                             </div>
                             <div class="contact-suggestions">
                                 Contacts without reminders: <br>
                                 <% current_user.contacts_without_active_reminders.sample(3).each_with_index do |contact, index| %>
                                     <%= link_to new_reminder_path(contact_id: contact), class: "text-link" do %>
-                                        <%= contact.full_name %><% if current_user.contacts_without_active_reminders.sample(3).length == 3 && index == 0 %>,
-                                        <% end %>
+                                        <%= contact.full_name %><% if current_user.contacts_without_active_reminders.sample(3).length == 3 && index == 0 %>,<% end %>
                                     <% end %>
                                     <% if index == 1 %>
                                         and
