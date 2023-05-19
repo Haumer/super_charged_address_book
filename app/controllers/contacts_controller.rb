@@ -20,7 +20,7 @@ class ContactsController < ApplicationController
             UserContact.create(contact: @contact, user: current_user)
             GroupContact.create(group: current_user.groups.find_by(name: "unassigned"), contact: @contact)
             create_birthday_reminder if @contact.birthday.present?
-            redirect_to @contact
+            redirect_to contacts_path
         else
             render :new
         end

@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :groups
 
   def create_group_for_new_user
+    return if Group.find_by(name: "unassigned").present?
+    
     Group.create(name: "unassigned", user: self)
   end
 

@@ -1,27 +1,29 @@
 <div class="contacts-container">
     <% @contact_groups.each do |group_details| %>
         <div class="group" style="border-color: <%= group_details[:group].color %>">
-            <div class="group-name"><%= group_details[:group].name %></div>
+            <div class="group-name"><%= link_to group_details[:group].name, group_path(group_details[:group]), class: "group-link" %></div>
             <% group_details[:contacts].each do |contact| %>
                 <div class="contact-card">
                     <div class="full-name">
+                        <div class="new-reminder">
+                            <%= link_to new_reminder_path(contact_id: contact) do %>
+                                <i class="fa-solid fa-bell"></i>
+                            <% end %>
+                        </div>
                         <%= contact.full_name %>
                     </div>
-                    <% if contact.birthday %>
-                        <div class="birthday">
+                    <div class="birthday">
+                        <% if contact.birthday %>
                             <i class="fa-solid fa-cake-candles"></i><%= contact.birthday.strftime("%b %d, %Y") %>
                             <span class="mini-font">
                                 <%= time_distance(Date.today, Date.new(Date.today.year, contact.birthday.month, contact.birthday.day)) %>
                             </span> 
-                        </div>
-                    <% end %>
+                        <% else %>
+                            <i class="fa-solid fa-cake-candles"></i> --,--,--
+                        <% end %>
+                    </div>
                     <div class="new-group">
                         <%= render "group_contacts/form", contact: contact, group_contact: contact.group_contact %>
-                    </div>
-                    <div class="new-reminder">
-                        <%= link_to new_reminder_path(contact_id: contact) do %>
-                            <i class="fa-solid fa-bell"></i>
-                        <% end %>
                     </div>
                 </div>
             <% end %>
@@ -30,6 +32,9 @@
 </div>
 
 <style>
+.full-name {
+    display:flex;
+}
 .group-name {
     position: absolute;
     background: #f4f4f4;
