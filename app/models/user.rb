@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  after_commit :create_group_for_new_user
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -9,6 +10,10 @@ class User < ApplicationRecord
   has_many :reminders, dependent: :destroy
   has_many :contact_reminders, through: :reminders
   has_many :groups
+
+  def create_group_for_new_user
+    Group.create(name: "unassigned", user: self)
+  end
 
   def unassigned_contacts
     groups.find_by(name: "unassigned").contacts

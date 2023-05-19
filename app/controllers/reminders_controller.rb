@@ -5,7 +5,7 @@ class RemindersController < ApplicationController
     def index
         set_time_variables
         set_reminder_groups
-
+        @random_contacts_without_active_reminders = current_user.contacts_without_active_reminders.sample(3)
         @time_periods = [
             {
                 reminders: current_user.reminders.where(

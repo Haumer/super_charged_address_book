@@ -41,7 +41,7 @@
                                     </div>
                                 <% end %>
                             <% end %>
-                        <% else %>
+                        <% elsif current_user.contacts.present? %>
                             <%= link_to new_reminder_path, class: "text-link" do %>
                                 <i class="fa-regular fa-square-plus"></i> add a reminder
                             <% end %>
@@ -49,30 +49,43 @@
                     </div>
                     <% if reminder_group[:css] == "today" %>
                         <div class="reminder-suggestions">
+                            <% if current_user.unassigned_contacts.count.zero? && !current_user.contacts_without_active_reminders.present? && !current_user.next_contacts_birthday.present? %>
+                                Doesnt look like you have any contacts...
+                                 <%= link_to new_contact_path, class: "text-link" do %>
+                                    <i class="fa-regular fa-square-plus"></i> add one now!
+                                <% end %>
+                            <% end %>
                             <div class="cleanup-contacts-suggestions">
-                                Cleanup Address book: <br>
-                                <%= link_to contacts_path, class: "text-link" do %>
-                                    <%= current_user.unassigned_contacts.count %> unassigned contacts 
+                                <% if current_user.unassigned_contacts.count > 0 %>
+                                    Cleanup Address book: <br>
+                                    <%= link_to contacts_path, class: "text-link" do %>
+                                        <%= pluralize(current_user.unassigned_contacts.count, "unassigned contact") %> 
+                                    <% end %>
                                 <% end %>
                             </div>
                             <div class="contact-suggestions">
-                                Contacts without reminders: <br>
-                                <% current_user.contacts_without_active_reminders.sample(3).each_with_index do |contact, index| %>
-                                    <%= link_to new_reminder_path(contact_id: contact), class: "text-link" do %>
-                                        <%= contact.full_name %><% if current_user.contacts_without_active_reminders.sample(3).length == 3 && index == 0 %>,<% end %>
+                                <% if current_user.contacts_without_active_reminders.present? && @random_contacts_without_active_reminders.count == 3%>
+                                    Contacts without reminders: <br>
+                                    <% @random_contacts_without_active_reminders[0..1].each_with_index do |contact, index| %>
+                                        <%= link_to new_reminder_path(contact_id: contact), class: "text-link" do %>
+                                            <%= contact.full_name %><% if @random_contacts_without_active_reminders.length == 3 && index == 0 %>,<% end %>
+                                        <% end %>
                                     <% end %>
-                                    <% if index == 1 %>
-                                        and
+                                    and
+                                    <%= link_to new_reminder_path(contact_id: @random_contacts_without_active_reminders[-1]), class: "text-link" do %>
+                                        <%= @random_contacts_without_active_reminders[-1].full_name %><% if @random_contacts_without_active_reminders.length == 3 && index == 0 %>,<% end %>
                                     <% end %>
                                 <% end %>
                             </div>
                             <div class="next-birthday">
-                                Next birthday: <br>
-                                <i class="fa-solid fa-cake-candles"></i> <%= current_user.next_contacts_birthday.full_name %>
-                                <% if current_user.next_contacts_birthday.birthday_reminder_set? %>
-                                    (reminder is set!)
-                                <% else %>
-                                    (set a reminder now)
+                                <% if current_user.next_contacts_birthday.present? %>
+                                    Next birthday: <br>
+                                    <i class="fa-solid fa-cake-candles"></i> <%= current_user.next_contacts_birthday.full_name %>
+                                    <% if current_user.next_contacts_birthday.birthday_reminder_set? %>
+                                        (reminder is set!)
+                                    <% else %>
+                                        (set a reminder now)
+                                    <% end %>
                                 <% end %>
                             </div>
                         </div>

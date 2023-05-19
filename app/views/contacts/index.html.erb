@@ -19,7 +19,9 @@
                         <%= render "group_contacts/form", contact: contact, group_contact: contact.group_contact %>
                     </div>
                     <div class="new-reminder">
-                        <%= link_to "setup reminder", new_reminder_path(contact_id: contact) %>
+                        <%= link_to new_reminder_path(contact_id: contact) do %>
+                            <i class="fa-solid fa-bell"></i>
+                        <% end %>
                     </div>
                 </div>
             <% end %>
