@@ -1,4 +1,4 @@
-<%= simple_form_for [contact, group_contact] do |f| %>
+<%= simple_form_for [contact, group_contact], html: {novalidate: true, class: "no-bs-validation"} do |f| %>
     <div class="group-contact-form d-flex">
         <%= f.association :group, collection: current_user.groups, label: false %>
         <div class="small-3 columns">
@@ -15,3 +15,4 @@
     font-size: 38px;
 }
 </style>
+
