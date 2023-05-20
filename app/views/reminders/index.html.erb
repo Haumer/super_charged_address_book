@@ -18,7 +18,7 @@
                 <% end %>
                 <div class="time-period-reminder">
                     <div class="time-period-reminders-details <%= reminder_group[:css] %>">
-                        <% if reminder_group[:reminders].values.first %>
+                        <% if reminder_group[:reminders].present? %>
                             <% reminder_group[:reminders].each do |day, reminders| %>
                                 <% reminders.sort_by(&:created_at).each do |reminder| %>
                                     <div class="reminder">

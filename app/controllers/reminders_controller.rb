@@ -30,7 +30,7 @@ class RemindersController < ApplicationController
             {
                 reminders: current_user.reminders.where(
                     active: true, 
-                    target_date: @tomorrow..@tomorrow
+                    target_date: @tomorrow
                 ).group_by_day(&:target_date),
                 from_time: @tomorrow,
                 to_time: @tomorrow,
@@ -126,7 +126,7 @@ class RemindersController < ApplicationController
             active: true, 
             target_date: @today..@today
         ).group_by_day(&:target_date)
-        @tomorrow = current_user.reminders.where(
+        @tomorrow_reminders = current_user.reminders.where(
             active: true, 
             target_date: @tomorrow..@tomorrow
         ).group_by_day(&:target_date)
