@@ -1,5 +1,12 @@
 <%= @reminder.target_date %>
 <% @reminder.contacts.each do |contact| %>
-    <%= contact.full_name %>
+<div class="d-flex">
+    <div class="button-secondary button-connect-right">
+        <i class="fa-regular fa-square-check"></i>
+    </div>
+    <div class="button-secondary button-connect-left">
+        <%= contact.full_name %>
+    </div>
+</div>
 <% end %>
 

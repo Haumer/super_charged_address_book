@@ -22,28 +22,33 @@
                             <% reminder_group[:reminders].each do |day, reminders| %>
                                 <% reminders.sort_by(&:created_at).each do |reminder| %>
                                     <div class="reminder">
-                                        <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch}, class: "contacted-link" do %>
-                                            <% if reminder.contacted %>
-                                                <i class="fa-solid fa-square-check"></i>
-                                            <% else %>
-                                                <i class="fa-regular fa-square-check"></i>
+                                        <div class="reminder-contacted">
+                                            <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch}, class: "contacted-link" do %>
+                                                <% if reminder.contacted %>
+                                                    <div class="button-success button-connect-right">
+                                                        <i class="fa-solid fa-circle-check"></i>
+                                                    </div>
+                                                <% else %>
+                                                    <div class="button-secondary button-connect-right button-yellow">
+                                                        <i class="fa-solid fa-clock"></i>
+                                                    </div>
+                                                <% end %>
                                             <% end %>
-                                            <% if reminder.birthday_reminder %>
-                                                <i class="fa-solid fa-cake-candles"></i>              
+                                            <%= link_to reminder_path(reminder), class: "button-secondary button-connect-left" do %>
+                                                <%= reminder.contacts.first.full_name %>
                                             <% end %>
-                                            <%= reminder.contacts.first.full_name %>
                                             <% if index > 2 %>
-                                            <span class="mini-font">
-                                                <%= reminder.target_date.strftime("%b %d") %> (<%= time_distance(Date.today, reminder.target_date) %>)
-                                            </span> 
+                                                <span class="reminder-date-future mini-font">
+                                                    <%= reminder.target_date.strftime("%b %d") %> (<%= time_distance(Date.today, reminder.target_date) %>)
+                                                </span> 
                                             <% end %>
-                                        <% end %>
+                                        </div>
                                     </div>
                                 <% end %>
                             <% end %>
                         <% elsif current_user.contacts.present? %>
-                            <%= link_to new_reminder_path, class: "button-secondary" do %>
-                                <i class="fa-regular fa-square-plus"></i> add a reminder
+                            <%= link_to new_reminder_path, class: "button-success text-center" do %>
+                                add a reminder
                             <% end %>
                         <% end %>
                     </div>
@@ -76,11 +81,14 @@
                             <div class="next-birthday">
                                 <% if current_user.next_contacts_birthday.present? %>
                                     Next birthday: <br>
-                                    <i class="fa-solid fa-cake-candles"></i> <%= current_user.next_contacts_birthday.full_name %>
                                     <% if current_user.next_contacts_birthday.birthday_reminder_set? %>
-                                        (reminder is set!)
+                                        <%= link_to reminder_path(current_user.next_contacts_birthday.reminders.find_by(birthday_reminder: true)), class: "button-secondary" do %>
+                                            <%= current_user.next_contacts_birthday.full_name %>
+                                        <% end %>
                                     <% else %>
-                                        (set a reminder now)
+                                        <%= link_to new_reminder_path(contact_id: current_user.next_contacts_birthday), class: "button-secondary" do %>
+                                            <%= current_user.next_contacts_birthday.full_name %>
+                                        <% end %>
                                     <% end %>
                                 <% end %>
                             </div>

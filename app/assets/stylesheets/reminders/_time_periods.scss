@@ -1,5 +1,4 @@
-.group-link,
-.contacted-link {
+.group-link {
     opacity: 0.7;
     transition: opacity 0.3s ease-in-out;
     &:hover {
@@ -15,9 +14,19 @@
         opacity: 1;
     }
 }
+.reminder-contacted {
+    display: flex;
+    align-items: center;
+    .reminder-date-future {
+        margin-left: 4px;
+    }
+    .fa-solid.fa-clock {
+        color: white;
+    }
+}
 
 .reminder-container {
-    margin: 16px;
+    margin: 16px 0;
     .time-periods {
         display: flex;
         flex-wrap: wrap;
@@ -81,6 +90,9 @@
         width: calc(50% - 8px);
     }
     @media (max-width: 800px) {
+        .reminder-contacted {
+            width: fit-content;
+        }
         .last-seven-days {
             margin: 4px;
             width: calc(20% - 8px);
@@ -94,7 +106,7 @@
         .next-seven-days,
         .next-thirty-days {
             margin: 4px;
-            width: calc(50% - 8px);
+            width: calc(100% - 8px);
         }
     }
 }
