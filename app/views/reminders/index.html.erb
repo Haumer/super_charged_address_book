@@ -7,7 +7,7 @@
                         <div class="name-title">
                             <%= reminder_group[:name] %>  
                         </div>
-                        <div class="todays-suggestions-title">
+                        <div class="todays-suggestions-title d-none d-md-block">
                             Todays Suggestions
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                         <% end %>
                     </div>
                     <% if reminder_group[:css] == "today" %>
-                        <div class="reminder-suggestions">
+                        <div class="reminder-suggestions d-none d-md-block">
                             <% if current_user.unassigned_contacts.count.zero? && !current_user.contacts_without_active_reminders.present? && !current_user.next_contacts_birthday.present? %>
                                 Doesnt look like you have any contacts...
                                  <%= link_to new_contact_path, class: "button-secondary" do %>
