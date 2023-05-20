@@ -9,6 +9,6 @@
             <%= sf.association :contact, collection: current_user.contacts, label_method: :full_name, value_method: :id %>
         <% end %>
     <% end %>
-    <%= f.submit %>
+    <%= f.submit class: "button-success" %>
 <% end %>
 
