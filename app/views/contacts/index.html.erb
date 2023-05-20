@@ -1,7 +1,11 @@
 <div class="contacts-container">
-    <%= link_to "Create a new contact", new_contact_path, class: "text-link mb-4" %>
+    <div class="actions">
+        <%= link_to "Create a new Contact", new_contact_path, class: "button-success action" %>
+        <%= link_to "Create a new Group", new_group_path, class: "button-secondary action" %>
+        <%= link_to "Create a new Reminder", new_reminder_path, class: "button-secondary action" %>
+    </div>
     <% @contact_groups.each do |group_details| %>
-        <div class="group" style="border-color: <%= group_details[:group].color %>">
+        <div class="group" style="border-color: transparent; box-shadow: <%= group_details[:group].color %>  0px 1px 1px, <%= group_details[:group].color %> 0px 0px 1px 1px;">
             <div class="group-name">
                 <%= link_to group_details[:group].name, group_path(group_details[:group]), class: "group-link" %>
             </div>
@@ -26,8 +30,11 @@
                                         <%= time_distance(Date.today, Date.new(Date.today.year, contact.birthday.month, contact.birthday.day)) %>
                                     </span> 
                                 <% else %>
-                                    <i class="fa-solid fa-cake-candles"></i> --,--,--
+                                    <i class="fa-solid fa-cake-candles"></i>--,--,--
                                 <% end %>
+                            </div>
+                            <div class="email">
+                                <i class="fa-solid fa-envelope"></i><%= contact.email %>
                             </div>
                             <div class="new-group">
                                 <%= render "group_contacts/form", contact: contact, group_contact: contact.group_contact %>

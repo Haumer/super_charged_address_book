@@ -2,17 +2,22 @@
     <div class="group-contact-form d-flex">
         <%= f.association :group, collection: current_user.groups, label: false %>
         <div class="small-3 columns">
-            <%= button_tag type: 'submit', class: "success-btn" do %>
-                <i class="fa-solid fa-square-check"></i>
+            <%= button_tag type: 'submit', class: "button-secondary" do %>
+                <i class="fa-solid fa-check"></i>
             <% end %>
         </div>
     </div>
 <% end %>
 
 <style>
-.fa-square-check {
-    color: #1EDD88;
-    font-size: 38px;
+.fa-check {
+    color: grey;
+}
+.select {
+    line-height: 20px;
+    background: white;
+    background-image: none !important;
+    margin: 0 !important;
 }
 </style>
 
