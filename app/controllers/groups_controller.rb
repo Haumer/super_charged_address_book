@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-    before_action :find_group, only: [ :show ]
+    before_action :find_group, only: [ :show, :update ]
     def new
         @group = Group.new
     end
@@ -14,6 +14,14 @@ class GroupsController < ApplicationController
         end
     end
 
+    def update
+        if @group.update(group_params)
+            redirect_to @group
+        else
+
+        end
+    end
+
     def show
     end
 
@@ -24,6 +32,6 @@ class GroupsController < ApplicationController
     end
 
     def group_params
-        params.require(:group).permit(:name, :interval)
+        params.require(:group).permit(:name, :interval, :color)
     end
 end

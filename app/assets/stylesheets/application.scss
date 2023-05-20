@@ -11,6 +11,16 @@
 @import "components/index";
 @import "pages/index";
 @import "reminders/index";
+@import "contacts/index";
+
+:root {
+    --default-padding: 8px;
+    --default-border-radius: 2px;
+    --medium-font-size: 16px;
+    --mini-font-size: 14px;
+    --default-h2-size: 20px;
+    --default-yellow: #F2AF29;
+}
 
 .mini-font {
     font-size: 10px;

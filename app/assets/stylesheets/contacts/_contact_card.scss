@@ -1,0 +1,94 @@
+
+.contact-card-top {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    padding: var(--default-padding);
+    border-top-left-radius: var(--default-border-radius);
+    border-top-right-radius: var(--default-border-radius);
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    .new-reminder {
+        color: white;
+        background: var(--default-yellow);
+        position: absolute;
+        top: -1px;
+        right: -1px;
+        border: 1px solid var(--default-yellow);
+        border-top-right-radius: var(--default-border-radius);
+        padding: var(--default-padding);
+        height: 42px;
+        width: 42px;
+        text-align: center;
+        opacity: 0.7;
+        transition: all 0.3s ease-in-out;
+        i:hover {
+            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        &:hover {
+            opacity: 1;
+            color: var(--default-yellow);
+            background: white;
+            
+        }
+    }
+}
+.group-name {
+    padding: 0 8px;
+}
+.contacts-container {
+    margin: 16px;
+    width: calc(100% - 32px);
+    display: flex;
+    flex-wrap: wrap;
+}
+.contact-cards {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.group {
+    background: white;
+    width: 100%;
+    border: 2px solid;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 8px;
+}
+.contact-card {
+    width: calc((100% / 3) - 8px);
+    margin: 4px;
+    background: white;
+    border-top-left-radius: var(--default-border-radius);
+    border-top-right-radius: var(--default-border-radius);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    .contact-details {
+        padding: var(--default-padding);
+    }
+}
+@media (max-width: 800px) {
+    .contact-card {
+        width: 100%;
+        margin: 4px;
+        background: white;
+        border-radius: var(--default-border-radius);
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }    
+}
+
+@keyframes shake {
+    10%, 90% {
+      transform: rotate(0deg);
+    }
+    
+    20%, 80% {
+      transform: rotate(10deg);
+    }
+  
+    30%, 50%, 70% {
+      transform: rotate(-10deg);
+    }
+  
+    40%, 60% {
+      transform: rotate(0deg);
+    }
+  }

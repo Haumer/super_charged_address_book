@@ -2,70 +2,40 @@
     <%= link_to "Create a new contact", new_contact_path, class: "text-link mb-4" %>
     <% @contact_groups.each do |group_details| %>
         <div class="group" style="border-color: <%= group_details[:group].color %>">
-            <div class="group-name"><%= link_to group_details[:group].name, group_path(group_details[:group]), class: "group-link" %></div>
-            <% group_details[:contacts].each do |contact| %>
-                <div class="contact-card">
-                    <div class="full-name">
-                        <div class="new-reminder">
-                            <%= link_to new_reminder_path(contact_id: contact) do %>
-                                <i class="fa-solid fa-bell"></i>
-                            <% end %>
+            <div class="group-name">
+                <%= link_to group_details[:group].name, group_path(group_details[:group]), class: "group-link" %>
+            </div>
+            <div class="contact-cards">
+                <% group_details[:contacts].each do |contact| %>
+                    <div class="contact-card">
+                        <div class="contact-card-top">
+                            <div class="full-name">
+                                <%= contact.full_name %>
+                            </div>
+                            <div class="new-reminder">
+                                <%= link_to new_reminder_path(contact_id: contact) do %>
+                                    <i class="fa-solid fa-bell"></i>
+                                <% end %>
+                            </div>
                         </div>
-                        <%= contact.full_name %>
+                        <div class="contact-details">
+                            <div class="birthday">
+                                <% if contact.birthday %>
+                                    <i class="fa-solid fa-cake-candles"></i><%= contact.birthday.strftime("%b %d, %Y") %>
+                                    <span class="mini-font">
+                                        <%= time_distance(Date.today, Date.new(Date.today.year, contact.birthday.month, contact.birthday.day)) %>
+                                    </span> 
+                                <% else %>
+                                    <i class="fa-solid fa-cake-candles"></i> --,--,--
+                                <% end %>
+                            </div>
+                            <div class="new-group">
+                                <%= render "group_contacts/form", contact: contact, group_contact: contact.group_contact %>
+                            </div>
+                        </div>
                     </div>
-                    <div class="birthday">
-                        <% if contact.birthday %>
-                            <i class="fa-solid fa-cake-candles"></i><%= contact.birthday.strftime("%b %d, %Y") %>
-                            <span class="mini-font">
-                                <%= time_distance(Date.today, Date.new(Date.today.year, contact.birthday.month, contact.birthday.day)) %>
-                            </span> 
-                        <% else %>
-                            <i class="fa-solid fa-cake-candles"></i> --,--,--
-                        <% end %>
-                    </div>
-                    <div class="new-group">
-                        <%= render "group_contacts/form", contact: contact, group_contact: contact.group_contact %>
-                    </div>
-                </div>
-            <% end %>
+                <% end %>
+            </div>
         </div>
     <% end %>
 </div>
-
-<style>
-.full-name {
-    display:flex;
-}
-.group-name {
-    position: absolute;
-    background: #f4f4f4;
-    top: -14px;
-    padding: 0 8px;
-}
-.contacts-container {
-    margin: 16px;
-    width: calc(100% - 32px);
-    display: flex;
-    flex-wrap: wrap;
-}
-.group {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    border: 2px solid;
-    border-radius: 4px;
-    padding: 8px;
-    margin: 8px;
-}
-.contact-card {
-    width: calc(33% - 7px);
-    margin: 4px;
-}
-@media (max-width: 800px) {
-    .contact-card {
-        width: calc(50% - 8px);
-        margin: 4px;
-    }    
-}
-</style>

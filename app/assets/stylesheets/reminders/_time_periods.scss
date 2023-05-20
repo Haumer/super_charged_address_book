@@ -1,0 +1,100 @@
+.group-link,
+.contacted-link {
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.text-link {
+    text-decoration: underline;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out;
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.reminder-container {
+    margin: 16px;
+    .time-periods {
+        display: flex;
+        flex-wrap: wrap;
+        .time-period {
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+            border-top-left-radius: var(--default-border-radius);
+            border-top-right-radius: var(--default-border-radius);
+            background: white;
+            height: 42vh;
+            .time-period-name {
+                border-top-left-radius: var(--default-border-radius);
+                border-top-right-radius: var(--default-border-radius);
+                color: black;
+                box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+                width: 100%;
+                padding: var(--default-padding) 16px;
+                font-size: var(--default-h2-size);
+                &.todays-suggestions {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+            .time-period-reminder {
+                padding: var(--default-padding)  16px;
+                display: flex;
+                font-size: var(--medium-font-size);
+                .reminder-suggestions {
+                    width: 50%;
+                    font-size: var(--medium-font-size);
+                    .cleanup-contacts-suggestions,
+                    .contact-suggestions {
+                        margin-bottom: 8px;
+                    }
+                }
+                .time-period-reminders-details {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    &.today {
+                        width: 50%;
+                    }
+                }
+            }
+        }
+    }
+    .last-seven-days {
+        margin: 4px;
+        width: calc(20% - 8px);
+    }
+    .today {
+        margin: 4px;
+        width: calc(60% - 8px);
+    }
+    .tomorrow {
+        margin: 4px;
+        width: calc(20% - 8px);
+    }
+    .next-seven-days,
+    .next-thirty-days {
+        margin: 4px;
+        width: calc(50% - 8px);
+    }
+    @media (max-width: 800px) {
+        .last-seven-days {
+            margin: 4px;
+            width: calc(20% - 8px);
+            display: none;
+        }
+        .today,
+        .tomorrow {
+            margin: 4px;
+            width: calc(100% - 8px);
+        }
+        .next-seven-days,
+        .next-thirty-days {
+            margin: 4px;
+            width: calc(50% - 8px);
+        }
+    }
+}
