@@ -47,7 +47,7 @@
                     <div class="contact-take-action">
                         <% if current_user.contacts_without_active_reminders.present? && @random_contacts_without_active_reminders.count == 3%>
                             Contacts without reminders: <br>
-                            <% @random_contacts_without_active_reminders.each do |contact, index| %>
+                            <% current_user.daily_action.contacts.each do |contact, index| %>
                                 <%= link_to new_reminder_path(contact_id: contact), class: "button-secondary" do %>
                                     <%= contact.full_name %>
                                 <% end %>

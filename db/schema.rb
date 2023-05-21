@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_21_194027) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_21_213448) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_21_194027) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "daily_action_contacts", force: :cascade do |t|
+    t.bigint "daily_action_id", null: false
+    t.bigint "contact_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_daily_action_contacts_on_contact_id"
+    t.index ["daily_action_id"], name: "index_daily_action_contacts_on_daily_action_id"
+  end
+
+  create_table "daily_actions", force: :cascade do |t|
+    t.boolean "completed", default: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_daily_actions_on_user_id"
   end
 
   create_table "group_contacts", force: :cascade do |t|
@@ -91,6 +108,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_21_194027) do
 
   add_foreign_key "contact_reminders", "contacts"
   add_foreign_key "contact_reminders", "reminders"
+  add_foreign_key "daily_action_contacts", "contacts"
+  add_foreign_key "daily_action_contacts", "daily_actions"
+  add_foreign_key "daily_actions", "users"
   add_foreign_key "group_contacts", "contacts"
   add_foreign_key "group_contacts", "groups"
   add_foreign_key "groups", "users"

@@ -1,6 +1,6 @@
 class Reminder < ApplicationRecord
   belongs_to :user
-  has_many :contact_reminders
+  has_many :contact_reminders, dependent: :destroy
   has_many :contacts, through: :contact_reminders
   accepts_nested_attributes_for :contact_reminders
 
