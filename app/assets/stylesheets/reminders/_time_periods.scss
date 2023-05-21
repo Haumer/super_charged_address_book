@@ -90,7 +90,20 @@
         margin: 4px;
         width: calc(50% - 8px);
     }
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
+        .reminder-contacted {
+            width: fit-content;
+        }
+        .last-seven-days,
+        .today,
+        .take-action,
+        .next-seven-days,
+        .next-thirty-days {
+            margin: 4px;
+            width: calc(50% - 8px);
+        }
+    }
+    @media (max-width: 500px) {
         .reminder-contacted {
             width: fit-content;
         }
