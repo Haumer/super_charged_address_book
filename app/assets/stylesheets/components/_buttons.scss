@@ -13,15 +13,15 @@
 }
 
 .button-yellow {
-  background-color: var(--default-yellow) !important;
+  background-color: $yellow !important;
   &:hover {
-    background-color: #e09c15 !important;
+    background-color: $dark-yellow !important;
   }
 }
 .button-red {
-  background-color: var(--default-red) !important;
+  background-color: $red !important;
   &:hover {
-    background-color: #920118 !important;
+    background-color: $dark-red !important;
   }
 }
 

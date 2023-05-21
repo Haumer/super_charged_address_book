@@ -35,26 +35,26 @@
         flex-wrap: wrap;
         .time-period {
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            border-top-left-radius: var(--default-border-radius);
-            border-top-right-radius: var(--default-border-radius);
+            border-top-left-radius: $border-radius-xs;
+            border-top-right-radius: $border-radius-xs;
             background: white;
             min-height: 33vh;
             .time-period-name {
-                border-top-left-radius: var(--default-border-radius);
-                border-top-right-radius: var(--default-border-radius);
+                border-top-left-radius: $border-radius-xs;
+                border-top-right-radius: $border-radius-xs;
                 color: black;
                 box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
                 width: 100%;
-                padding: var(--default-padding) 16px;
-                font-size: var(--default-h2-size);
+                padding: $padding-md 16px;
+                font-size: $font-h2;
             }
             .time-period-reminder {
-                padding: var(--default-padding);
+                padding: $padding-md;
                 display: flex;
-                font-size: var(--medium-font-size);
+                font-size: $font-size-md;
                 .reminder-take-action {
                     width: 100%;
-                    font-size: var(--medium-font-size);
+                    font-size: $font-size-md;
                     .cleanup-contacts-take-action,
                     .contact-take-action {
                         margin-bottom: 8px;

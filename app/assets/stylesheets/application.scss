@@ -2,26 +2,18 @@
 @import "config/fonts";
 @import "config/colors";
 @import "config/bootstrap_variables";
+@import "config/pixel_variables";
 
 // External libraries
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
+@import "flatpickr/dist/themes/airbnb";
 
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
 @import "reminders/index";
 @import "contacts/index";
-
-:root {
-    --default-padding: 8px;
-    --default-border-radius: 2px;
-    --medium-font-size: 16px;
-    --mini-font-size: 14px;
-    --default-h2-size: 20px;
-    --default-yellow: #F2AF29;
-    --default-red: #a40e26;
-}
 
 .app-container {
     margin: 1rem;
