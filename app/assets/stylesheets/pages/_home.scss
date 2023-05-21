@@ -1,1 +1,11 @@
-// Specific CSS for your home-page
+.header {
+    margin: 32px;
+    .header-your {
+        margin-left: 8px;
+        color: #2C974B;
+        font-weight: bolder;
+    }
+    .header-part-two {
+        font-size: 3rem;
+    }
+}

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :group_contacts
   end
   resources :groups
+  resources :users, only: [ :show ]
 
   get "heatmap", to: "reminders#heatmap"
   resources :reminders do

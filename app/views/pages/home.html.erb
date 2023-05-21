@@ -1,27 +1,25 @@
 <div class="home-container">
-    <% if user_signed_in? %>
-        <h1>Stay in touch with your contacts</h1>
-        <% if current_user.contacts.count.zero? %>
-            You dont have any contacts yet, so lets <%= link_to "create some", new_contact_path, class: "text-link" %>.
-        <% else %>
-            <% if current_user.reminders.where(birthday_reminder: false).count.zero? %>
-                You have dont have any active reminders, so lets <%= link_to "set some up", new_reminder_path, class: "text-link" %>!
+    <div class="header">
+        <h1 class="header-part-one">Super charge<span class="font-italic header-your">your</span></h1>
+        <h1 class="header-part-two"> AddressBook</h1>
+    </div>
+    <div class="home-prompt">
+        <% if user_signed_in? %>
+            <% if current_user.contacts.count.zero? %>
+                You dont have any contacts yet, so lets <%= link_to "create some", new_contact_path, class: "text-link" %>.
             <% else %>
-                You have <%= pluralize(current_user.contacts.count, "contact") %> and <%= pluralize(current_user.reminders.count, "reminder") %>
-                <% if current_user.groups.count == 1 %>
-                    You only have one group (<%= current_user.groups.first.name %>), consider <%= link_to "organizing them into groups ", new_group_path, class: "text_link" %>
+                <% if current_user.reminders.where(birthday_reminder: false).count.zero? %>
+                    You have dont have any active reminders, so lets <%= link_to "set some up", new_reminder_path, class: "text-link" %>!
                 <% else %>
+                    You have <%= pluralize(current_user.contacts.count, "contact") %> and <%= pluralize(current_user.reminders.count, "reminder") %>
+                    <% if current_user.groups.count == 1 %>
+                        You only have one group (<%= current_user.groups.first.name %>), consider <%= link_to "organizing them into groups ", new_group_path, class: "text_link" %>
+                    <% else %>
+                    <% end %>
                 <% end %>
             <% end %>
+        <% else %>
+            you need to <%= link_to "Login", new_user_session_path, class: "text-link" %> or <%= link_to "Signup", new_user_registration_path, class: "text-link" %>
         <% end %>
-    <% else %>
-        <h1>Howdy!</h1>
-        you need to <%= link_to "Login", new_user_session_path, class: "text-link" %> or <%= link_to "Signup", new_user_registration_path, class: "text-link" %>
-    <% end %>
+    </div>
 </div>
-
-<style>
-.home-container {
-    margin: 16px;
-}
-</style>
