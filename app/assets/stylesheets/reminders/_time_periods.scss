@@ -26,6 +26,9 @@
 }
 
 .reminder-container {
+    .reminder {
+        margin-bottom: 1px;
+    }
     margin: 16px 0;
     .time-periods {
         display: flex;
@@ -46,7 +49,7 @@
                 font-size: var(--default-h2-size);
             }
             .time-period-reminder {
-                padding: var(--default-padding)  16px;
+                padding: var(--default-padding);
                 display: flex;
                 font-size: var(--medium-font-size);
                 .reminder-take-action {

@@ -14,9 +14,15 @@
 
 .button-yellow {
   background-color: var(--default-yellow) !important;
+  &:hover {
+    background-color: #e09c15 !important;
+  }
 }
 .button-red {
   background-color: var(--default-red) !important;
+  &:hover {
+    background-color: #920118 !important;
+  }
 }
 
 .button-success {
