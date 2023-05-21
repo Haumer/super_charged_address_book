@@ -20,6 +20,11 @@
     .reminder-date-future {
         margin-left: 4px;
     }
+    .reminder-date-past {
+        margin-left: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     .fa-solid.fa-clock {
         color: white;
     }
@@ -89,16 +94,9 @@
         .reminder-contacted {
             width: fit-content;
         }
-        .last-seven-days {
-            margin: 4px;
-            width: calc(20% - 8px);
-            display: none;
-        }
+        .last-seven-days,
         .today,
-        .tomorrow {
-            margin: 4px;
-            width: calc(100% - 8px);
-        }
+        .take-action,
         .next-seven-days,
         .next-thirty-days {
             margin: 4px;

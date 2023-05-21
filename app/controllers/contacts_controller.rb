@@ -20,6 +20,8 @@ class ContactsController < ApplicationController
             UserContact.create(contact: @contact, user: current_user)
             GroupContact.create(group: current_user.groups.find_by(name: "unassigned"), contact: @contact)
             create_birthday_reminder if @contact.birthday.present?
+
+            flash[:notice] = "Successfully created!"
             redirect_to contacts_path
         else
             render :new
@@ -30,6 +32,7 @@ class ContactsController < ApplicationController
 
     def update
         if @contact.update(contact_params)
+            flash[:notice] = "Successfully updated!"
             redirect_to @contact
         else
             render :edit
@@ -57,7 +60,7 @@ class ContactsController < ApplicationController
         reminder = Reminder.create(
             user: @contact.user_contacts.find_by(shared: [false, nil]).user,
             birthday_reminder: true,
-            reaccuring: true,
+            reoccurring: true,
             target_date: Reminder.next_bday(@contact.birthday),
             interval: Reminder.time_distance_in_days(
                 Reminder.next_bday(@contact.birthday), 

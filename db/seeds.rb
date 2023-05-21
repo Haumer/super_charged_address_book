@@ -84,7 +84,7 @@ if Rails.env == "development"
             reminder = Reminder.create(
                 user: user,
                 birthday_reminder: true,
-                reaccuring: true,
+                reoccurring: true,
                 contacted: false,
                 active: true,
                 target_date: Contact.next_bday(contact.birthday),

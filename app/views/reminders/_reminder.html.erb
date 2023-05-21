@@ -17,6 +17,11 @@
             <% end %>
             <%= reminder.contacts.first.full_name %>
         <% end %>
+        <% if time_period == "last-seven-days" && !reminder.contacted %>
+            <span class="reminder-date-past mini-font">
+                <%= reminder.target_date.strftime("%b %d") %> (<%= time_distance(Date.today, reminder.target_date) %>)
+            </span> 
+        <% end %>
         <% if time_period.include?("next") %>
             <span class="reminder-date-future mini-font">
                 <%= reminder.target_date.strftime("%b %d") %> (<%= time_distance(Date.today, reminder.target_date) %>)

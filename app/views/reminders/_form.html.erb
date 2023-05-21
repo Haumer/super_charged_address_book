@@ -1,7 +1,7 @@
 <%= simple_form_for reminder, data: { controller: "flatpickr" } do |f| %>
     <%= f.input :interval %>
     <%= f.input :target_date, as: :string, input_html: { data: { flatpickr_target: "selectDate" } } %>
-    <%= f.input :reaccuring %>
+    <%= f.input :reoccurring %>
     <%= f.simple_fields_for contact_reminder do |sf| %>
         <% if pre_selected_contact_id %>
             <%= sf.association :contact, selected: [current_user.contacts.find(pre_selected_contact_id).full_name, current_user.contacts.find(pre_selected_contact_id).id], collection: current_user.contacts, label_method: :full_name, value_method: :id %>

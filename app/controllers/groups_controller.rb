@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
         @group = Group.new(group_params)
         @group.user = current_user
         if @group.save
+            flash[:notice] = "Successfully created!"
             redirect_to @group
         else
             render :new
@@ -16,9 +17,10 @@ class GroupsController < ApplicationController
 
     def update
         if @group.update(group_params)
+            flash[:notice] = "Successfully updated!"
             redirect_to @group
         else
-
+            render :show
         end
     end
 

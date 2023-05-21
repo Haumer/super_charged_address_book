@@ -8,19 +8,19 @@ class RemindersController < ApplicationController
         @last_seven_days_reminders = current_user.reminders.where(
             active: true, 
             target_date: @eight_days_ago..@yesterday
-        ).order(target_date: :desc, created_at: :desc)
+        ).order(target_date: :asc, created_at: :desc)
         @todays_reminders = current_user.reminders.where(
             active: true, 
             target_date: @today
-        ).order(target_date: :desc, created_at: :desc)
+        ).order(target_date: :asc, created_at: :desc)
         @next_seven_days_reminders = current_user.reminders.where(
             active: true, 
-            target_date: @day_after_tomorrow..@eight_days_from_now
-        ).order(target_date: :desc, created_at: :desc)
+            target_date: @tomorrow..@eight_days_from_now
+        ).order(target_date: :asc, created_at: :desc)
         @next_thirty_days_reminders = current_user.reminders.where(
             active: true, 
             target_date: @next_week..@more_than_four_weeks
-        ).order(target_date: :desc, created_at: :desc)
+        ).order(target_date: :asc, created_at: :desc)
         @time_periods = [
             {
                 reminders: current_user.reminders.where(
@@ -97,6 +97,7 @@ class RemindersController < ApplicationController
             @contact_reminder = ContactReminder.new(contact_reminder_params)
             @contact_reminder.reminder = @reminder
             @contact_reminder.save
+            flash[:notice] = "Successfully created!"
             redirect_to @reminder
         else
             render :new
@@ -110,10 +111,10 @@ class RemindersController < ApplicationController
             status = {}
             status[:actual_date] = @reminder.contacted ? Date.today : nil
             @reminder.update(status) 
-
+            flash[:notice] = "Successfully updated!"
             redirect_back(fallback_location: root_path)
         else
-            
+
         end
     end
 
@@ -137,7 +138,7 @@ class RemindersController < ApplicationController
     end
 
     def reminder_params
-        params.require(:reminder).permit(:actual_date, :target_date, :reaccuring, :active, :contacted, :interval)
+        params.require(:reminder).permit(:actual_date, :target_date, :reoccurring, :active, :contacted, :interval)
     end
 
     def contact_reminder_params

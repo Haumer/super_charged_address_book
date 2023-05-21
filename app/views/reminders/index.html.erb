@@ -29,7 +29,7 @@
                 Take Action
             </div>
             <div class="time-period-reminder">
-                <div class="reminder-take-action d-none d-md-block">
+                <div class="reminder-take-action">
                     <% if current_user.unassigned_contacts.count.zero? && !current_user.contacts_without_active_reminders.present? && !current_user.next_contacts_birthday.present? %>
                         Doesnt look like you have any contacts...
                             <%= link_to new_contact_path, class: "button-secondary" do %>
