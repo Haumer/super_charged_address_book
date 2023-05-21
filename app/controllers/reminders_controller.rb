@@ -4,8 +4,23 @@ class RemindersController < ApplicationController
 
     def index
         set_time_variables
-        set_reminder_groups
         @random_contacts_without_active_reminders = current_user.contacts_without_active_reminders.sample(3)
+        @last_seven_days_reminders = current_user.reminders.where(
+            active: true, 
+            target_date: @eight_days_ago..@yesterday
+        ).order(target_date: :desc, created_at: :desc)
+        @todays_reminders = current_user.reminders.where(
+            active: true, 
+            target_date: @today
+        ).order(target_date: :desc, created_at: :desc)
+        @next_seven_days_reminders = current_user.reminders.where(
+            active: true, 
+            target_date: @day_after_tomorrow..@eight_days_from_now
+        ).order(target_date: :desc, created_at: :desc)
+        @next_thirty_days_reminders = current_user.reminders.where(
+            active: true, 
+            target_date: @next_week..@more_than_four_weeks
+        ).order(target_date: :desc, created_at: :desc)
         @time_periods = [
             {
                 reminders: current_user.reminders.where(
@@ -115,29 +130,6 @@ class RemindersController < ApplicationController
         @next_four_weeks = Date.today + 37.day
         @more_than_four_weeks = Date.today + 29.day
         @next_year = @more_than_four_weeks + 182.day
-    end
-
-    def set_reminder_groups
-        @last_week = current_user.reminders.where(
-            active: true, 
-            target_date: @eight_days_ago..@yesterday
-        ).group_by_day(&:target_date)
-        @todays_reminders = current_user.reminders.where(
-            active: true, 
-            target_date: @today..@today
-        ).group_by_day(&:target_date)
-        @tomorrow_reminders = current_user.reminders.where(
-            active: true, 
-            target_date: @tomorrow..@tomorrow
-        ).group_by_day(&:target_date)
-        @next_month_reminders = current_user.reminders.where(
-            active: true, 
-            target_date: @day_after_tomorrow..@eight_days_from_now
-        ).group_by_day(&:target_date)
-        @upcoming_reminders = current_user.reminders.where(
-            active: true, 
-            target_date: @next_week..@more_than_four_weeks
-        ).group_by_day(&:target_date)
     end
 
     def find_reminder

@@ -1,101 +1,99 @@
 <div class="reminder-container">
     <div class="time-periods">
-        <% @time_periods.each_with_index do |reminder_group, index| %>
-            <section class="time-period <%= reminder_group[:css] %>">
-                <% if reminder_group[:css] == 'today' %>
-                    <div class="time-period-name todays-suggestions">
-                        <div class="name-title">
-                            <%= reminder_group[:name] %>  
-                        </div>
-                        <div class="todays-suggestions-title d-none d-md-block">
-                            Todays Suggestions
-                        </div>
-                    </div>
-                <% else %>
-                    <div class="time-period-name">
-                        <%= reminder_group[:name] %>  
-                    </div>
-                <% end %>
-                <div class="time-period-reminder">
-                    <div class="time-period-reminders-details <%= reminder_group[:css] %>">
-                        <% if reminder_group[:reminders].present? %>
-                            <% reminder_group[:reminders].each do |day, reminders| %>
-                                <% reminders.sort_by(&:created_at).each do |reminder| %>
-                                    <div class="reminder">
-                                        <div class="reminder-contacted">
-                                            <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch}, class: "contacted-link" do %>
-                                                <% if reminder.contacted %>
-                                                    <div class="button-success button-connect-right">
-                                                        <i class="fa-solid fa-circle-check"></i>
-                                                    </div>
-                                                <% else %>
-                                                    <div class="button-secondary button-connect-right button-yellow">
-                                                        <i class="fa-solid fa-clock"></i>
-                                                    </div>
-                                                <% end %>
-                                            <% end %>
-                                            <%= link_to reminder_path(reminder), class: "button-secondary button-connect-left" do %>
-                                                <%= reminder.contacts.first.full_name %>
-                                            <% end %>
-                                            <% if index > 2 %>
-                                                <span class="reminder-date-future mini-font">
-                                                    <%= reminder.target_date.strftime("%b %d") %> (<%= time_distance(Date.today, reminder.target_date) %>)
-                                                </span> 
-                                            <% end %>
-                                        </div>
-                                    </div>
-                                <% end %>
-                            <% end %>
-                        <% elsif current_user.contacts.present? %>
-                            <%= link_to new_reminder_path, class: "button-success text-center" do %>
-                                add a reminder
+        <section class="time-period last-seven-days">
+            <div class="time-period-name">
+                Last 7 Days
+            </div>
+            <div class="time-period-reminder">
+                <div class="time-period-reminders-details last-seven-days">
+                    <% @last_seven_days_reminders.each do |reminder| %>
+                        <%= render "reminder", reminder: reminder, time_period: "last-seven-days" %>
+                    <% end %>
+                </div>
+            </div>
+        </section>
+        <section class="time-period today">
+            <div class="time-period-name">
+                Today
+            </div>
+            <div class="time-period-reminder">
+                <div class="time-period-reminders-details today">
+                    <% @todays_reminders.each do |reminder| %>
+                        <%= render "reminder", reminder: reminder, time_period: "today" %>
+                    <% end %>
+                </div>
+            </div>
+        </section>
+        <section class="time-period take-action">
+            <div class="time-period-name">
+                Take Action
+            </div>
+            <div class="time-period-reminder">
+                <div class="reminder-take-action d-none d-md-block">
+                    <% if current_user.unassigned_contacts.count.zero? && !current_user.contacts_without_active_reminders.present? && !current_user.next_contacts_birthday.present? %>
+                        Doesnt look like you have any contacts...
+                            <%= link_to new_contact_path, class: "button-secondary" do %>
+                            <i class="fa-regular fa-square-plus"></i> add one now!
+                        <% end %>
+                    <% end %>
+                    <div class="cleanup-contacts-take-action">
+                        <% if current_user.unassigned_contacts.count > 0 %>
+                            Cleanup Address book: <br>
+                            <%= link_to contacts_path, class: "button-secondary" do %>
+                                <%= pluralize(current_user.unassigned_contacts.count, "unassigned contact") %> 
                             <% end %>
                         <% end %>
                     </div>
-                    <% if reminder_group[:css] == "today" %>
-                        <div class="reminder-suggestions d-none d-md-block">
-                            <% if current_user.unassigned_contacts.count.zero? && !current_user.contacts_without_active_reminders.present? && !current_user.next_contacts_birthday.present? %>
-                                Doesnt look like you have any contacts...
-                                 <%= link_to new_contact_path, class: "button-secondary" do %>
-                                    <i class="fa-regular fa-square-plus"></i> add one now!
+                    <div class="contact-take-action">
+                        <% if current_user.contacts_without_active_reminders.present? && @random_contacts_without_active_reminders.count == 3%>
+                            Contacts without reminders: <br>
+                            <% @random_contacts_without_active_reminders.each do |contact, index| %>
+                                <%= link_to new_reminder_path(contact_id: contact), class: "button-secondary" do %>
+                                    <%= contact.full_name %>
                                 <% end %>
                             <% end %>
-                            <div class="cleanup-contacts-suggestions">
-                                <% if current_user.unassigned_contacts.count > 0 %>
-                                    Cleanup Address book: <br>
-                                    <%= link_to contacts_path, class: "button-secondary" do %>
-                                        <%= pluralize(current_user.unassigned_contacts.count, "unassigned contact") %> 
-                                    <% end %>
+                        <% end %>
+                    </div>
+                    <div class="next-birthday">
+                        <% if current_user.next_contacts_birthday.present? %>
+                            Upcoming birthday: <br>
+                            <% if current_user.next_contacts_birthday.birthday_reminder_set? %>
+                                <%= link_to reminder_path(current_user.next_contacts_birthday.reminders.find_by(birthday_reminder: true)), class: "button-secondary" do %>
+                                    <%= current_user.next_contacts_birthday.full_name %>
                                 <% end %>
-                            </div>
-                            <div class="contact-suggestions">
-                                <% if current_user.contacts_without_active_reminders.present? && @random_contacts_without_active_reminders.count == 3%>
-                                    Contacts without reminders: <br>
-                                    <% @random_contacts_without_active_reminders.each do |contact, index| %>
-                                        <%= link_to new_reminder_path(contact_id: contact), class: "button-secondary" do %>
-                                            <%= contact.full_name %>
-                                        <% end %>
-                                    <% end %>
+                            <% else %>
+                                <%= link_to new_reminder_path(contact_id: current_user.next_contacts_birthday), class: "button-secondary" do %>
+                                    <%= current_user.next_contacts_birthday.full_name %>
                                 <% end %>
-                            </div>
-                            <div class="next-birthday">
-                                <% if current_user.next_contacts_birthday.present? %>
-                                    Next birthday: <br>
-                                    <% if current_user.next_contacts_birthday.birthday_reminder_set? %>
-                                        <%= link_to reminder_path(current_user.next_contacts_birthday.reminders.find_by(birthday_reminder: true)), class: "button-secondary" do %>
-                                            <%= current_user.next_contacts_birthday.full_name %>
-                                        <% end %>
-                                    <% else %>
-                                        <%= link_to new_reminder_path(contact_id: current_user.next_contacts_birthday), class: "button-secondary" do %>
-                                            <%= current_user.next_contacts_birthday.full_name %>
-                                        <% end %>
-                                    <% end %>
-                                <% end %>
-                            </div>
-                        </div>
+                            <% end %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="time-period next-seven-days">
+            <div class="time-period-name">
+                Next 7 Days
+            </div>
+            <div class="time-period-reminder">
+                <div class="time-period-reminders-details next-seven-days">
+                    <% @next_seven_days_reminders.each do |reminder| %>
+                        <%= render "reminder", reminder: reminder, time_period: "next-seven-days" %>
                     <% end %>
                 </div>
-            </section>
-        <% end %>
+            </div>
+        </section>
+        <section class="time-period next-seven-days">
+            <div class="time-period-name">
+                Next 30 Days
+            </div>
+            <div class="time-period-reminder">
+                <div class="time-period-reminders-details next-thirty-days">
+                    <% @next_thirty_days_reminders.each do |reminder| %>
+                        <%= render "reminder", reminder: reminder, time_period: "next-thirty-days" %>
+                    <% end %>
+                </div>
+            </div>
+        </section>
     </div>
 </div>

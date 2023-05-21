@@ -44,20 +44,16 @@
                 width: 100%;
                 padding: var(--default-padding) 16px;
                 font-size: var(--default-h2-size);
-                &.todays-suggestions {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                }
             }
             .time-period-reminder {
                 padding: var(--default-padding)  16px;
                 display: flex;
                 font-size: var(--medium-font-size);
-                .reminder-suggestions {
-                    width: 50%;
+                .reminder-take-action {
+                    width: 100%;
                     font-size: var(--medium-font-size);
-                    .cleanup-contacts-suggestions,
-                    .contact-suggestions {
+                    .cleanup-contacts-take-action,
+                    .contact-take-action {
                         margin-bottom: 8px;
                     }
                 }
@@ -65,24 +61,21 @@
                     display: flex;
                     flex-direction: column;
                     width: 100%;
-                    &.today {
-                        width: 50%;
-                    }
                 }
             }
         }
     }
     .last-seven-days {
         margin: 4px;
-        width: calc(20% - 8px);
+        width: calc(30% - 8px);
     }
     .today {
         margin: 4px;
-        width: calc(60% - 8px);
+        width: calc(40% - 8px);
     }
-    .tomorrow {
+    .take-action {
         margin: 4px;
-        width: calc(20% - 8px);
+        width: calc(30% - 8px);
     }
     .next-seven-days,
     .next-thirty-days {
