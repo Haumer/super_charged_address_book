@@ -8,7 +8,7 @@ class Contact < ApplicationRecord
         "#{first_name.capitalize} #{last_name.capitalize}"
     end
 
-    def self.next_bday(bday, additional_years: 0)
+    def self.next_bday(bday, additional_years: 1)
         return unless bday
 
         Date.new(Date.today.year + additional_years, bday.month, bday.day)
