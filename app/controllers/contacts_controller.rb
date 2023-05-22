@@ -2,6 +2,7 @@ class ContactsController < ApplicationController
     before_action :find_contact, only: [ :show, :edit, :update, :destroy ]
 
     def index
+        @groups = current_user.groups
         @contact_groups = current_user.groups.map do |group|
             {
                 group: group,

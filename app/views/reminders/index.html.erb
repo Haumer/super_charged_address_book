@@ -18,8 +18,12 @@
             </div>
             <div class="time-period-reminder">
                 <div class="time-period-reminders-details today">
-                    <% @todays_reminders.each do |reminder| %>
-                        <%= render "reminder", reminder: reminder, time_period: "today" %>
+                    <% if @todays_reminders.present? %>
+                        <% @todays_reminders.each do |reminder| %>
+                            <%= render "reminder", reminder: reminder, time_period: "today" %>
+                        <% end %>
+                    <% else %>
+                        All Done!
                     <% end %>
                 </div>
             </div>

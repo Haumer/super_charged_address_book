@@ -4,45 +4,38 @@
         <%= link_to "Create a new Group", new_group_path, class: "button-secondary action" %>
         <%= link_to "Create a new Reminder", new_reminder_path, class: "button-secondary action" %>
     </div>
-    <% @contact_groups.each do |group_details| %>
-        <div class="group" style="border-color: transparent; box-shadow: <%= group_details[:group].color %>  0px 1px 1px, <%= group_details[:group].color %> 0px 0px 1px 1px;">
-            <div class="group-name">
-                <%= link_to group_details[:group].name, group_path(group_details[:group]), class: "group-link" %>
-            </div>
-            <div class="contact-cards">
-                <% group_details[:contacts].each do |contact| %>
-                    <div class="contact-card">
-                        <div class="contact-card-top">
+    <div class="groups">
+        <% @groups.each do |group| %>
+            <div class="group">
+                <div class="group-name" style="border-bottom: 1px solid <%= group.color %>">
+                    <%= group.name %>
+                </div>
+                <div class="contacts">
+                    <% group.contacts.each_with_index do |contact, index| %>
+                        <div class="contact-card <%= 'last-row' if index == group.contacts.count - 1 || index == group.contacts.count - 2 && group.contacts.count.even? || group.contacts.count.odd? && index == group.contacts.count - 1 %>">
                             <div class="full-name">
                                 <%= contact.full_name %>
                             </div>
-                            <div class="new-reminder">
-                                <%= link_to new_reminder_path(contact_id: contact) do %>
-                                    <i class="fa-solid fa-bell"></i>
+                            <div class="contact-actions">
+                                <%= link_to contact_path(contact) do %>
+                                    <div class="contact-edit contact-action">
+                                        <i class="fa-light fa-pen-to-square"></i>
+                                    </div>
                                 <% end %>
+                                <div class="contact-reminder contact-action">
+                                    <%= link_to new_reminder_path(contact_id: contact) do %>
+                                        <i class="fa-light fa-bell"></i>
+                                    <% end %>
+                                </div>
                             </div>
                         </div>
-                        <div class="contact-details">
-                            <div class="birthday">
-                                <% if contact.birthday %>
-                                    <i class="fa-solid fa-cake-candles"></i><%= contact.birthday.strftime("%b %d, %Y") %>
-                                    <span class="mini-font">
-                                        <%= time_distance(Date.today, Date.new(Date.today.year, contact.birthday.month, contact.birthday.day)) %>
-                                    </span> 
-                                <% else %>
-                                    <i class="fa-solid fa-cake-candles"></i>--,--,--
-                                <% end %>
-                            </div>
-                            <div class="email">
-                                <i class="fa-solid fa-envelope"></i><%= contact.email %>
-                            </div>
-                            <div class="new-group">
-                                <%= render "group_contacts/form", contact: contact, group_contact: contact.group_contact %>
-                            </div>
+                    <% end %>
+                    <% if group.contacts.count.odd? %>
+                        <div class="contact-card-placeholder">
                         </div>
-                    </div>
-                <% end %>
+                    <% end %>
+                </div>
             </div>
-        </div>
-    <% end %>
+        <% end %>
+    </div>
 </div>

@@ -1,105 +1,46 @@
-
-.contact-card-top {
-    display: flex;
-    position: relative;
-    justify-content: space-between;
-    padding: $padding-md;
-    border-top-left-radius: $border-radius-xs;
-    border-top-right-radius: $border-radius-xs;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    .new-reminder {
-        position: absolute;
-        top: -1px;
-        right: -1px;
-        border: 1px solid $yellow;
-        border-top-right-radius: $border-radius-xs;
-        padding: $padding-md;
-        height: 42px;
-        width: 42px;
-        text-align: center;
-        transition: all 0.3s ease-in-out;
-        opacity: 1;
-        color: $yellow;
-        background: white;
-        i:hover {
-            animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-        }
-        &:hover {
-            opacity: 0.7;
-            color: white;
-            background: $yellow;
-        }
-    }
-}
-.group-name {
-    padding: 0 8px;
-}
-.contacts-container {
-    margin: 16px;
-    width: calc(100% - 32px);
-    display: flex;
-    flex-wrap: wrap;
-}
-.contact-cards {
-    display: flex;
-    flex-wrap: wrap;
-
+.actions {
+    margin-bottom: 8px;
 }
 .group {
     background: white;
-    width: 100%;
-    border: 2px solid;
-    border-radius: 4px;
     padding: 8px;
-    margin-top: 8px;
 }
-.contact-card {
-    width: calc((100% / 3) - 8px);
+.group-name {
+    margin: 12px 0 0 12px;
+    width: fit-content;
+}
+
+.contacts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     margin: 4px;
-    background: white;
-    border-top-left-radius: $border-radius-xs;
-    border-top-right-radius: $border-radius-xs;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    .contact-details {
-        padding: $padding-md;
-    }
-    .birthday {
-        .fa-solid.fa-cake-candles {
-            margin-right: 4px;
-        }
-    }
+}
+.contact-card,
+.contact-card-placeholder {
+    width: calc(50% - 8px);
 }
 
-.action {
-    .action {
-        margin-right: 4px;
-    }
+.contact-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    height: 64px;
+    border-bottom: 1px solid $off-grey;
 }
-
-@media (max-width: 800px) {
-    .contact-card {
-        width: 100%;
-        margin: 4px;
-        background: white;
-        border-radius: $border-radius-xs;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    }    
+.contact-card.last-row {
+     border-bottom: none;
 }
-
-@keyframes shake {
-    10%, 90% {
-      transform: rotate(0deg);
-    }
-    
-    20%, 80% {
-      transform: rotate(10deg);
-    }
-  
-    30%, 50%, 70% {
-      transform: rotate(-10deg);
-    }
-  
-    40%, 60% {
-      transform: rotate(0deg);
-    }
-  }
+.contact-actions {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.contact-action {
+    height: 48px;
+    width: 48px;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
+}
