@@ -56,7 +56,7 @@
                         </div>
                     <% end %>
                     <div class="reminder-interval mini-font">
-                        every <%= reminder.interval %> days
+                        <%= time_distance(Date.today, reminder.target_date) %>
                     </div>
                 </div>
             <% end %>
@@ -142,6 +142,7 @@
     border-bottom: 1px solid #cfd0d2;
 }
 .contact-field {
+    font-size: 16px;
     height: 64px;
     display: flex;
     align-items: center;
@@ -151,8 +152,11 @@
     border-bottom: none;
 }
 .contact-field-name {
+    font-size: 14px;
     width: 120px;
     text-align: right;
+    color: #737373;
+    text-transform: uppercase;
 }
 .contact-field-value {
     padding-left: 8px;
@@ -160,12 +164,16 @@
 .active-reminders,
 .inactive-reminders {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     margin-bottom: 8px;
+}
+.active-reminders {
+    width: 50%;
 }
 .reminder {
     display: flex;
     align-items: center;
-    padding-left: 8px;
 }
 .reminder:first-of-type {
     padding: 0
@@ -176,5 +184,13 @@
 }
 .reminder-interval {
     padding-left: 8px;
+}
+@media (max-width: 500px) {
+    .trix-button-row {
+        flex-wrap: wrap !important;
+    }
+    .active-reminders {
+        width: 100%;
+    }
 }
 </style>

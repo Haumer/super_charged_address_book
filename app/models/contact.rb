@@ -20,10 +20,10 @@ class Contact < ApplicationRecord
     end
 
     def active_reminders
-        reminders.where(active: true)
+        reminders.where(active: true).order(target_date: :asc)
     end
 
     def inactive_reminders
-        reminders.where(active: false)
+        reminders.where(active: false).order(target_date: :asc)
     end
 end

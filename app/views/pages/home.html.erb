@@ -11,9 +11,8 @@
                 <% if current_user.reminders.where(birthday_reminder: false).count.zero? %>
                     You have dont have any active reminders, so lets <%= link_to "set some up", new_reminder_path, class: "text-link" %>!
                 <% else %>
-                    You have <%= pluralize(current_user.contacts.count, "contact") %> and <%= pluralize(current_user.reminders.count, "reminder") %>
-                    <br>
-                    <%= link_to "Check your reminders", reminders_path, class: "button-success" %>
+                    <%= link_to "Check your Reminders", reminders_path, class: "button-success" %>
+                    <%= link_to "Manage your Contacts", contacts_path, class: "button-secondary" %>
                     <% if current_user.groups.count == 1 %>
                         You only have one group (<%= current_user.groups.first.name %>), consider <%= link_to "organizing them into groups ", new_group_path, class: "text_link" %>
                     <% else %>
