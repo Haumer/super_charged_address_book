@@ -1,0 +1,36 @@
+<% if !reminders.count.zero? %>
+    <%= reminder_type_name %>
+    <div class="<%= reminder_type_name == "Active Reminders" ? 'active' : 'inactive' %>-reminders">
+        <% reminders.each do |reminder| %>
+            <div class="reminder">
+                <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
+                    <% if reminder.contacted %>
+                        <div class="button-success button-connect-right">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                    <% else %>
+                        <div class="button-secondary button-connect-right button-yellow">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                    <% end %>
+                    <div class="button-secondary button-connect-left">
+                        <% if reminder.birthday_reminder %>
+                            <i class="fa-solid fa-cake-candles"></i>
+                        <% end %>
+                        <%= reminder.target_date.strftime("%b %d, %Y") %>
+                    </div>
+                <% end %>
+                <% if reminder_type_name = "Active Reminders" %>
+                    <div class="reminder-interval mini-font">
+                        <%= time_distance(Date.today, reminder.target_date) %>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+<% elsif reminder_type_name == "Active Reminders" %>
+    <%= reminder_type_name %>
+    <div class="new-reminder">
+        <%= link_to "Create a Reminder", new_reminder_path, class: "button-success" %>
+    </div>
+<% end %>

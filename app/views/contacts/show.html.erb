@@ -34,57 +34,8 @@
         <div class="section-header">
             Reminders
         </div>
-        Active Reminders
-        <div class="active-reminders">
-            <% @contact.active_reminders.each do |reminder| %>
-                <div class="reminder">
-                    <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
-                        <% if reminder.contacted %>
-                            <div class="button-success button-connect-right">
-                                <i class="fa-solid fa-circle-check"></i>
-                            </div>
-                        <% else %>
-                            <div class="button-secondary button-connect-right button-yellow">
-                                <i class="fa-solid fa-clock"></i>
-                            </div>
-                        <% end %>
-                        <div class="button-secondary button-connect-left">
-                            <% if reminder.birthday_reminder %>
-                                <i class="fa-solid fa-cake-candles"></i>
-                            <% end %>
-                        <%= reminder.target_date.strftime("%b %d, %Y") %>
-                        </div>
-                    <% end %>
-                    <div class="reminder-interval mini-font">
-                        <%= time_distance(Date.today, reminder.target_date) %>
-                    </div>
-                </div>
-            <% end %>
-        </div>
-        Old Reminders
-        <div class="inactive-reminders">
-            <% @contact.inactive_reminders.each do |reminder| %>
-                <div class="reminder">
-                    <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
-                        <% if reminder.contacted %>
-                            <div class="button-success button-connect-right">
-                                <i class="fa-solid fa-circle-check"></i>
-                            </div>
-                        <% else %>
-                            <div class="button-secondary button-connect-right button-yellow">
-                                <i class="fa-solid fa-clock"></i>
-                            </div>
-                        <% end %>
-                        <div class="button-secondary button-connect-left">
-                            <% if reminder.birthday_reminder %>
-                                <i class="fa-solid fa-cake-candles"></i>
-                            <% end %>
-                        <%= reminder.target_date.strftime("%b %d, %Y") %>
-                        </div>
-                    <% end %>
-                </div>
-            <% end %>
-        </div>
+        <%= render "contact_reminders", reminder_type_name: "Active Reminders", reminders: @contact.active_reminders %>
+        <%= render "contact_reminders", reminder_type_name: "Old Reminders", reminders: @contact.inactive_reminders %>
     </div>
     <div class="contact-profile-notes">
         <div class="section-header">
@@ -168,13 +119,19 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 8px;
-}
-.active-reminders {
     width: 50%;
+}
+@media (max-width: 500px) {
+    .inactive-reminders,
+    .active-reminders {
+        width: 100%;
+    }
 }
 .reminder {
     display: flex;
     align-items: center;
+    margin-bottom: 1px;
+    width: 260px;
 }
 .reminder:first-of-type {
     padding: 0

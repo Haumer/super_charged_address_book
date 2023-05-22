@@ -21,6 +21,12 @@
     margin: 1rem;
     color: #24292e;
 }
+@media (max-width: 800px) {
+    .app-container {
+        margin: 4px;
+        padding-top: 4px;
+    }
+}
 
 .mini-font {
     font-size: 10px;
