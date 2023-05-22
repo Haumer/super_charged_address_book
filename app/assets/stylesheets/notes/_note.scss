@@ -1,0 +1,26 @@
+.contact-profile-notes {
+    .notes {
+        margin-bottom: 16px;
+        .note {
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+            min-height: 64px;
+            border-bottom: 1px solid $off-grey;
+            .note-timestamp-and-content {
+                display: flex;
+                align-items: center;
+            }
+            .note-timestamp {
+        
+            }
+            .note-content {
+                padding-left: 16px;
+            }
+            .note-delete {
+                text-align: center;
+                width: 64px;
+            }
+        }
+    }
+}

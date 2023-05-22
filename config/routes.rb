@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :group_contacts
     resources :notes
   end
+  resources :notes, only: [ :destroy ]
   resources :groups
   resources :users, only: [ :show ]
 
