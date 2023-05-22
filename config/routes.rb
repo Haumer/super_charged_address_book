@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :contacts do 
     resources :group_contacts
+    resources :notes
   end
   resources :groups
   resources :users, only: [ :show ]

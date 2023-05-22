@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :contact_reminders, through: :reminders
   has_many :groups, dependent: :destroy
   has_one :daily_action, dependent: :destroy
+  has_one :setting, dependent: :destroy
+  has_many :notes, dependent: :destroy
 
   def create_group_for_new_user
     return if groups.find_by(name: "unassigned").present?

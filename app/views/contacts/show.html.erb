@@ -1,1 +1,71 @@
-<%= @contact.full_name %>
+<div class="contact-profile">
+    <div class="contact-fields">
+        <div class="section-header full-name">
+            <%= @contact.full_name %>
+        </div>
+        <div class="contact-field">
+            <div class="contact-field-name">
+                Birthday:
+            </div>
+            <% if @contact.birthday %>
+                <div class="contact-birthday contact-field-value">
+                    <%= @contact.birthday.strftime("%b %d, %Y") %>
+                </div>
+            <% end %>
+        </div>
+        <div class="contact-field">
+            <div class="contact-field-name">
+                Email:
+            </div>
+            <div class="contact-email contact-field-value">
+                <%= @contact.email %>
+            </div>
+        </div>
+        <div class="contact-field">
+            <div class="contact-field-name">
+                Phone Number:
+            </div>
+            <div class="contact-phone-number contact-field-value">
+                <%= @contact.phone_number %>
+            </div>
+        </div>
+    </div>
+    <div class="contact-notes">
+        <div class="section-header">
+            Notes
+        </div>
+    </div>
+</div>
+
+<style>
+.contact-profile {
+    width: 100%;
+    min-height: calc(100vh - 106px);
+    background: white;
+    padding: 16px;
+}
+.section-header {
+    font-size: 24px;
+}
+.contact-fields {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+.contact-field {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #cfd0d2;
+}
+.contact-field:last-of-type {
+    border-bottom: none;
+}
+.contact-field-name {
+    width: 120px;
+    text-align: right;
+}
+.contact-field-value {
+    padding-left: 8px;
+}
+</style>

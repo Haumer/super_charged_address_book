@@ -4,43 +4,51 @@
 .group {
     background: white;
     padding: 8px;
+    .group-name {
+        margin: 12px 0 0 12px;
+        width: fit-content;
+    }
 }
-.group-name {
-    margin: 12px 0 0 12px;
-    width: fit-content;
-}
-
 .contacts {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 4px;
-}
-.contact-card,
-.contact-card-placeholder {
-    width: calc(50% - 8px);
-}
-
-.contact-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px;
-    height: 64px;
-    border-bottom: 1px solid $off-grey;
-}
-.contact-card.last-row {
-     border-bottom: none;
-}
-.contact-actions {
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.contact-action {
-    height: 48px;
-    width: 48px;
-    display:flex;
-    align-items: center;
-    justify-content: space-around;
+    .contact-card,
+    .contact-card-placeholder {
+        width: calc(50% - 8px);
+    }
+    @media (max-width: 1000px) {
+        .contact-card,
+        .contact-card-placeholder {
+            width: calc(100% - 8px);
+        }
+    }
+    .contact-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        height: 64px;
+        border-bottom: 1px solid $off-grey;
+        transition: all 0.3s ease-in-out;
+        .contact-actions {
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .contact-action {
+            height: 48px;
+            width: 48px;
+            display:flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        &:hover {
+            background: $light-gray;
+        }
+    }
+    .contact-card.last-row {
+         border-bottom: none;
+    }
 }
