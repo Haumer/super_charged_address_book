@@ -3,9 +3,9 @@ class Contact < ApplicationRecord
     has_many :contact_reminders, dependent: :destroy
     has_many :reminders, through: :contact_reminders
     has_many :notes, dependent: :destroy
-    has_one :group_contact
+    has_one :group_contact, dependent: :destroy
     has_one :group, through: :group_contact
-    has_many :contact_tags
+    has_many :contact_tags, dependent: :destroy
     has_many :tags, through: :contact_tags
     
     validates :first_name, presence: true, unless: ->(contact) { contact.last_name.present? }

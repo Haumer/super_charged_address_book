@@ -19,7 +19,7 @@ class ContactsController < ApplicationController
             flash[:notice] = "Successfully created!"
             redirect_to contacts_path
         else
-            render :new
+            render :new, status: :unprocessable_entity
         end
     end
 
@@ -30,13 +30,13 @@ class ContactsController < ApplicationController
             flash[:notice] = "Successfully updated!"
             redirect_to @contact
         else
-            render :edit
+            render :edit, status: :unprocessable_entity
         end
     end
 
     def destroy
         @contact.destroy
-        redirect_to :index
+        redirect_to contacts_path
     end
 
     def show; end

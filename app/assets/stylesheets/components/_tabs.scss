@@ -1,9 +1,10 @@
-.nav.nav-tabs {
+
+.nav-tabs {
+    margin: 16px 0;
     .nav-link {
         color: $text-color;
     }
-    margin-bottom: 16px;
-        &.mobile {
+    &.mobile {
         display: none !important;
     }
 }

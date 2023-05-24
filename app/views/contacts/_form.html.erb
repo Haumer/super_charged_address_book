@@ -1,25 +1,18 @@
-<%= simple_form_for contact, data: { controller: "flatpickr" } do |f| %>
-    <div class="full-name-form-elements d-flex">
-        <div class="first-name">
-            <%= f.input :first_name, placeholder: "First Name", label: false, autofocus: true %>
+<div class="col-sm-4 offset-sm-4">
+    Edit
+    <%= simple_form_for contact, data: { controller: "flatpickr" } do |f| %>
+        <div class="full-name-form-elements d-flex">
+            <div class="first-name">
+                <%= f.input :first_name, placeholder: "First Name", label: false, autofocus: true %>
+            </div>
+            <div class="last-name">
+                <%= f.input :last_name, placeholder: "Last Name", label: false %>
+            </div>
         </div>
-        <div class="last-name">
-            <%= f.input :last_name, placeholder: "Last Name", label: false %>
-        </div>
-    </div>
-    <%= f.input :birthday, as: :string, input_html: { data: { flatpickr_target: "selectDate" } }, placeholder: "Birthday", label: false %>
-    <%= f.input :email, placeholder: "Email", label: false %>
-    <%= f.input :phone_number, placeholder: "Phone Number", label: false %>
-    
-    <%= f.submit class: "button-success" %>
-<% end %>
-
-<style>
-    .first-name {
-        margin-right: 4px;
-    }
-    .first-name,
-    .last-name {
-        width: 50%;
-    }
-</style>
+        <%= f.input :birthday, as: :string, input_html: { data: { flatpickr_target: "selectDate" } }, placeholder: "Birthday", label: false %>
+        <%= f.input :email, placeholder: "Email", label: false %>
+        <%= f.input :phone_number, placeholder: "Phone Number", label: false %>
+        
+        <%= f.submit class: "button-success" %>
+    <% end %>
+</div>

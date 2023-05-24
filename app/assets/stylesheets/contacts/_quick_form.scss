@@ -1,0 +1,60 @@
+#contact-quick-create {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    .simple_form.new_contact {
+        display: flex;
+        background: white;
+        margin: 0 4px;
+        width: calc(100% - 8px);
+        height: 64px;
+        gap: 8px;
+        align-items: center;
+    }
+    .other-fields,
+    .required-fields {
+        flex-grow: 2;
+        gap: 8px;
+    }
+    .birthday {
+        width: 100px;
+    }
+    .first-name,
+    .last-name {
+        flex-grow: 2;
+    }
+    .contact_first_name,
+    .contact_last_name,
+    .contact_birthday,
+    .contact_email,
+    .contact_phone_number {
+        margin: 0 !important;
+    }
+    .contact_email {
+        flex-grow: 2;
+    }
+    .contact_birthday {
+        width: 100px;
+    }
+    .contact_first_name input,
+    .contact_birthday input,
+    .contact_email input,
+    .contact_phone_number input,
+    .contact_last_name input {
+        border-radius: 0;
+        border-bottom: 1px solid #cfd0d2 !important;
+        background: white;
+        margin: 0;
+        height: max-content;
+        padding: 4px 0;
+    }
+    .form-control {
+        border: 0 !important;
+        transition: all 0.3s ease-in-out;
+    }
+    .form-control:focus {
+        background: white;
+        box-shadow: 0px 2px #cfd0d2;
+    }
+}

@@ -1,82 +1,8 @@
 <div class="contacts-container">
-    <div class="actions">
-        <%= link_to "Create new Contact", new_contact_path, class: "button-success action" %>
-        <%= link_to "Create new Group", new_group_path, class: "button-secondary action" %>
-    </div>
-    <%= simple_form_for Contact.new, data: { controller: "flatpickr" } do |f| %>
-        <div class="required-fields d-flex">
-            <div class="first-name">
-                <%= f.input :first_name, placeholder: "First Name", label: false, autofocus: true %>
-            </div>
-            <div class="last-name">
-                <%= f.input :last_name, placeholder: "Last Name", label: false %>
-            </div>
-        </div>
-        <div class="other-fields d-lg-flex d-md-none d-sm-none d-xs-none">
-            <%= f.input :email, placeholder: "Email", label: false %>
-            <%= f.input :phone_number, placeholder: "Phone Number", label: false %>
-            <%= f.input :birthday, as: :string, input_html: { data: { flatpickr_target: "selectDate" } }, placeholder: "Birthday", label: false %>
-        </div>
-        <%= f.submit "Create", class: "something" %>
-    <% end %>
-    <style>
-        .simple_form.new_contact {
-            display: flex;
-            background: white;
-            padding: 12px 32px;
-            margin: 0 4px;
-            width: calc(100% - 8px);
-            height: 64px;
-            gap: 8px;
-            align-items: center;
-        }
-        .other-fields,
-        .required-fields {
-            flex-grow: 2;
-            gap: 8px;
-        }
-        .birthday {
-            /* width: 100px; */
-        }
-        .first-name,
-        .last-name {
-            flex-grow: 2;
-        }
-        .contact_first_name,
-        .contact_last_name,
-        .contact_birthday,
-        .contact_email,
-        .contact_phone_number {
-            margin: 0 !important;
-        }
-        .contact_email {
-            flex-grow: 2;
-        }
-        .contact_birthday {
-            width: 100px;
-        }
-        .contact_first_name input,
-        .contact_birthday input,
-        .contact_email input,
-        .contact_phone_number input,
-        .contact_last_name input {
-            border-radius: 0;
-            border-bottom: 1px solid #cfd0d2 !important;
-            background: white;
-            margin: 0;
-            height: max-content;
-            padding: 4px 0;
-        }
-        .form-control {
-            border: 0 !important;
-            transition: all 0.3s ease-in-out;
-        }
-        .form-control:focus {
-            background: white;
-            box-shadow: 0px 2px #cfd0d2;
-        }
-    </style>
     <div class="contacts">
+        <%= turbo_frame_tag "contact-quick-create" do %>
+            <%= link_to "Create new Contact", new_contact_path, class: "button-success" %>
+        <% end %>
         <% @contacts.each_with_index do |contact, index| %>
             <%= link_to contact_path(contact), class: "contact-card #{'last-row' if index == @contacts.count - 1 || index == @contacts.count - 2 && @contacts.count.even? || @contacts.count.odd? && index == @contacts.count - 1}" do %>
                 <div class="contact-card-top">
