@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :users, only: [ :show ]
   resources :tags
 
+  get "destroy_fake_contacts", to: "users#destroy_fake_contacts"
+  get "fake_contact", to: "users#fake_contact"
   get "heatmap", to: "reminders#heatmap"
   resources :reminders do
     resources :contact_reminders

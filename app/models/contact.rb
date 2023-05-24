@@ -1,4 +1,5 @@
 class Contact < ApplicationRecord
+    before_destroy :destroy_reminders
     has_many :user_contacts, dependent: :destroy
     has_many :contact_reminders, dependent: :destroy
     has_many :reminders, through: :contact_reminders
@@ -35,5 +36,9 @@ class Contact < ApplicationRecord
 
     def inactive_reminders
         reminders.where(active: false).order(target_date: :asc)
+    end
+
+    def destroy_reminders
+        reminders.destroy_all
     end
 end

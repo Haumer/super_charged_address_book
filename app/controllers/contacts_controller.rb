@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
     before_action :find_contact, only: [ :show, :edit, :update, :destroy ]
 
     def index
-        @contacts = current_user.contacts.order(last_name: :desc)
+        @contacts = current_user.contacts.order(last_name: :asc)
     end
 
     def new
@@ -11,15 +11,31 @@ class ContactsController < ApplicationController
 
     def create
         @contact = Contact.new(contact_params)
-        if @contact.save
-            UserContact.create(contact: @contact, user: current_user)
-            GroupContact.create(group: current_user.groups.find_by(name: "unassigned"), contact: @contact)
-            create_birthday_reminder if @contact.birthday.present?
+        respond_to do |format|
+            if @contact.save
+                UserContact.create(contact: @contact, user: current_user)
+                GroupContact.create(group: current_user.groups.find_by(name: "unassigned"), contact: @contact)
+                create_birthday_reminder if @contact.birthday.present?
 
-            flash[:notice] = "Successfully created!"
-            redirect_to contacts_path
-        else
-            render :new, status: :unprocessable_entity
+                format.turbo_stream do 
+                    render turbo_stream: [
+                        turbo_stream.update(
+                            "contact-quick-create", 
+                            partial: "contacts/contact_quick_new", 
+                            locals: { contact: Contact.new }
+                        ),
+                        turbo_stream.prepend(
+                            "contacts", 
+                            partial: "contacts/contact", 
+                            locals: { contact: @contact }
+                        )
+                    ]
+                end
+            else
+                format.turbo_stream do 
+                    render turbo_stream: turbo_stream.update("contact-quick-create", partial: "contacts/contact_quick_new", locals: { contact: @contact })
+                end
+            end
         end
     end
 

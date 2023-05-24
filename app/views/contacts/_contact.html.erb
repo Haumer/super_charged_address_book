@@ -1,0 +1,19 @@
+<%= link_to contact_path(contact), class: "contact-card" do %>
+    <div class="contact-card-top">
+        <div class="full-name">
+            <%= contact.full_name %>
+        </div>
+        <div class="top-level-details">
+            <div class="group" style="border-bottom: 1px solid <%= contact.group.color %>">
+                <% unless contact.group.name == "unassigned" %>
+                    <%= contact.group.name %>
+                <% end %>
+            </div>
+            <div class="reminder">
+                <% if contact.active_reminders_in_the_next_seven_days? %>
+                    <i class="fa-solid fa-bell"></i>
+                <% end %>
+            </div>
+        </div>
+    </div>
+<% end %>   

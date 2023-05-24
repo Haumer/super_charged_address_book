@@ -1,30 +1,21 @@
 <div class="contacts-container">
+    <% if current_user.admin? %>
+        <div class="admin-action" style="margin-bottom: 16px;">
+            <%= link_to "create fake contacts", fake_contact_path, class: "button-secondary" %>
+            <%= link_to "delete fakes contacts", destroy_fake_contacts_path, class: "button-secondary" %>
+            (only admins see this)
+        </div>
+    <% end %>
     <div class="contacts">
         <%= turbo_frame_tag "contact-quick-create" do %>
             <%= link_to "Create new Contact", new_contact_path, class: "button-success" %>
         <% end %>
-        <% @contacts.each_with_index do |contact, index| %>
-            <%= link_to contact_path(contact), class: "contact-card #{'last-row' if index == @contacts.count - 1 || index == @contacts.count - 2 && @contacts.count.even? || @contacts.count.odd? && index == @contacts.count - 1}" do %>
-                <div class="contact-card-top">
-                    <div class="full-name">
-                        <%= contact.full_name %>
-                    </div>
-                    <div class="top-level-details">
-                        <div class="group" style="border-bottom: 1px solid <%= contact.group.color %>">
-                            <% unless contact.group.name == "unassigned" %>
-                                <%= contact.group.name %>
-                            <% end %>
-                        </div>
-                        <div class="reminder">
-                            <% if contact.active_reminders_in_the_next_seven_days? %>
-                                <i class="fa-solid fa-bell"></i>
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
-            <% end %>   
-        <% end %>
-        <% if @contacts.count.odd? %>
+        <%= turbo_frame_tag "contacts" do %>
+            <% @contacts.each do |contact| %>
+                <%= turbo_frame_tag "contact-card", class: "contact-card" do %>
+                    <%= render "contact", contact: contact %>
+                <% end %>
+            <% end %>
             <div class="contact-card-placeholder">
             </div>
         <% end %>
