@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
     before_action :find_contact, only: [ :show, :edit, :update, :destroy ]
 
     def index
-        @groups = current_user.groups.order(created_at: :desc)
+        @contacts = current_user.contacts.order(last_name: :desc)
     end
 
     def new

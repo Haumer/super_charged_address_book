@@ -8,49 +8,41 @@
         justify-content: space-between;
     }
 } 
-.group {
-    background: white;
-    padding: 8px;
-    .group-name {
-        margin: 12px 0 8px 12px;
-        width: fit-content;
-        padding-bottom: 2px;
-    }
-}
 .contacts {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     margin: 4px;
+    background-color: white;
+    padding: 16px;
+    .top-level-details {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
     .contact-card,
     .contact-card-placeholder {
-        width: calc(50% - 8px);
-    }
-    @media (max-width: 800px) {
-        .contact-card,
-        .contact-card-placeholder {
-            width: calc(100% - 8px);
-        }
+        width: calc(100% - 8px);
     }
     .contact-card {
-        display: flex;
+        display:flex;
         align-items: center;
         justify-content: space-between;
         padding: 12px;
         height: 64px;
         border-bottom: 1px solid $off-grey;
         transition: all 0.3s ease-in-out;
-        .contact-actions {
-            display:flex;
-            align-items: center;
+        .contact-card-top {
+            display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
+            width: 100%;
         }
-        .contact-action {
-            height: 48px;
-            width: 48px;
-            display:flex;
-            align-items: center;
-            justify-content: space-around;
+        .contact-card-bottom {
+            .tags {
+                display: flex;
+            }
         }
         &:hover {
             background: $light-gray;
