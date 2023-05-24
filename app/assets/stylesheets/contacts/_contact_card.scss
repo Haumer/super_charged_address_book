@@ -4,6 +4,7 @@
 @media (max-width: 800px) {
     .actions {
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
     }
 } 
@@ -11,8 +12,9 @@
     background: white;
     padding: 8px;
     .group-name {
-        margin: 12px 0 0 12px;
+        margin: 12px 0 8px 12px;
         width: fit-content;
+        padding-bottom: 2px;
     }
 }
 .contacts {

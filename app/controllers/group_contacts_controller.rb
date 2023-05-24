@@ -7,8 +7,10 @@ class GroupContactsController < ApplicationController
     def create
         @group_contact = GroupContact.new(group_contact_params)
         if @group_contact.save
+            flash[:notice] = "Successfully created!"
             redirect_to @group_contact.group.user
         else
+            flash[:alert] = "Something went wrong!"
             render :new
         end
     end
@@ -16,8 +18,10 @@ class GroupContactsController < ApplicationController
     def update
         if @group_contact.update(group_contact_params)
             redirect_back(fallback_location: "contacts/index")
+            flash[:notice] = "Successfully changed!"
         else
-
+            redirect_back(fallback_location: "contacts/index")
+            flash[:alert] = "Something went wrong!"
         end
     end
 

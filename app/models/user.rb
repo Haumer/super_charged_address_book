@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   after_commit :create_group_for_new_user, on: :create
+  after_commit :create_daily_actions, on: :create
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -13,6 +15,17 @@ class User < ApplicationRecord
   has_one :daily_action, dependent: :destroy
   has_one :setting, dependent: :destroy
   has_many :notes, dependent: :destroy
+  has_many :tags, dependent: :destroy
+
+  def create_daily_actions
+    DailyAction.create(user: self)
+    self.contacts_without_active_reminders.sample(3).each do |contact|
+      DailyActionContact.create(
+        daily_action: self.daily_action,
+        contact: contact
+      )
+    end
+  end
 
   def create_group_for_new_user
     return if groups.find_by(name: "unassigned").present?

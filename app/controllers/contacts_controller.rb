@@ -2,13 +2,7 @@ class ContactsController < ApplicationController
     before_action :find_contact, only: [ :show, :edit, :update, :destroy ]
 
     def index
-        @groups = current_user.groups
-        @contact_groups = current_user.groups.map do |group|
-            {
-                group: group,
-                contacts: group.contacts.order(first_name: :asc)
-            }
-        end
+        @groups = current_user.groups.order(created_at: :desc)
     end
 
     def new
@@ -54,7 +48,7 @@ class ContactsController < ApplicationController
     end
 
     def contact_params
-        params.require(:contact).permit(:first_name, :last_name, :birthday, :email, :phone_number)
+        params.require(:contact).permit(:first_name, :last_name, :birthday, :email, :phone_number, tag_ids:[])
     end
 
     def create_birthday_reminder

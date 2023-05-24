@@ -1,0 +1,17 @@
+.nav.nav-tabs {
+    .nav-link {
+        color: $text-color;
+    }
+    margin-bottom: 16px;
+        &.mobile {
+        display: none !important;
+    }
+}
+@media (max-width: 500px) {
+    .nav.nav-tabs.mobile {
+        display: flex !important;
+    }
+    .nav.nav-tabs.desktop {
+        display: none !important;
+    }
+}

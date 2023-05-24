@@ -8,11 +8,13 @@ Rails.application.routes.draw do
 
   resources :contacts do 
     resources :group_contacts
-    resources :notes
+    resources :notes, except: [ :destroy ]
+    resources :contact_tags, except: [ :destroy ]
   end
   resources :notes, only: [ :destroy ]
   resources :groups
   resources :users, only: [ :show ]
+  resources :tags
 
   get "heatmap", to: "reminders#heatmap"
   resources :reminders do

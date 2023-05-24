@@ -79,21 +79,26 @@ if Rails.env == "development"
 
     address_book.each do |contact|
         contact = Contact.create(contact)
-        UserContact.create(contact: contact, user: user)
+        bday = Contact.next_bday(contact.birthday)
+        user_contact = UserContact.create(contact: contact, user: user)
         if contact.birthday
             reminder = Reminder.create(
                 user: user,
                 birthday_reminder: true,
                 reoccurring: true,
                 contacted: false,
-                active: true,
-                target_date: Contact.next_bday(contact.birthday),
+                active: bday > (Date.today - 8.day),
+                target_date: bday,
                 interval: Reminder.time_distance_in_days(
-                    Contact.next_bday(contact.birthday), 
-                    Contact.next_bday(contact.birthday, additional_years: 1)
+                    Contact.next_bday(bday), 
+                    Contact.next_bday(bday, additional_years: 0)
                 )
             )
             ContactReminder.create(reminder: reminder, contact: contact)
         end
+    end
+    group = Group.find_or_create_by(name: "unassigned", user: user)
+    user.reload.contacts.each do |contact|
+        group_contact = GroupContact.create(contact: contact, group: group)
     end
 end

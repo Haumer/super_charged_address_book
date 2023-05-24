@@ -1,0 +1,11 @@
+<%= simple_form_for contact, id: dom_id(contact) do |f| %>
+  <%= f.association :tags, 
+    as: :check_boxes, 
+    collection: current_user.tags, 
+    label: false, 
+    input_html: { class: "tag-selector" },
+    item_wrapper_class: 'tag-item' %>
+  <%= button_tag type: 'submit', class: "button-secondary" do %>
+      <i class="fa-solid fa-check"></i>
+  <% end %>
+<% end %>

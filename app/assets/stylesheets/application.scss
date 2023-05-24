@@ -19,7 +19,7 @@
 
 .app-container {
     margin: 1rem;
-    color: #24292e;
+    color: $text-color;
 }
 @media (max-width: 800px) {
     .app-container {

@@ -1,0 +1,95 @@
+.contact-profile {
+    width: 100%;
+    min-height: calc(100vh - 106px);
+    background: white;
+    padding: 16px;
+    .fa-circle-check,
+    .fa-clock {
+        color: white;
+    }
+    .section-header {
+        font-size: 24px;
+    }
+    .full-name-and-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    @media (max-width: 500px) {
+        .full-name-and-group {
+            display: block;
+        }
+    }
+    
+    .contact-fields {
+        display: flex;
+        flex-direction: column;
+        .contact-field {
+            font-size: 16px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #cfd0d2;
+            .contact-field-name {
+                font-size: 14px;
+                width: 120px;
+                text-align: right;
+                color: #737373;
+                text-transform: uppercase;
+            }
+            .contact-field-value {
+                padding-left: 8px;
+            }
+        }
+        .contact-field:last-of-type {
+            border-bottom: none;
+        }
+    }
+    .contact-fields,
+    .contact-profile-reminders,
+    .contact-profile-notes {
+        margin-bottom: 16px;
+    }
+    .contact-fields,
+    .contact-profile-reminders {
+        border-bottom: 1px solid #cfd0d2;
+    }
+    .active-reminders,
+    .inactive-reminders {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        width: 50%;
+    }
+    @media (max-width: 500px) {
+        .inactive-reminders,
+        .active-reminders {
+            width: 100%;
+        }
+    }
+    .reminder {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1px;
+        width: 300px;
+    }
+    .reminder:first-of-type {
+        padding: 0
+    }
+    .reminder a {
+        display: flex;
+        justify-content: space-around;
+    }
+    .reminder-interval {
+        padding-left: 8px;
+    }
+}
+@media (max-width: 500px) {
+    .trix-button-row {
+        flex-wrap: wrap !important;
+    }
+    .active-reminders {
+        width: 100%;
+    }
+}
