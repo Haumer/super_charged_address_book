@@ -89,9 +89,10 @@ class RemindersController < ApplicationController
         @reminder = Reminder.new(reminder_params)
         @reminder.user = current_user
         if @reminder.save
+            @contact = Contact.find(contact_reminder_params[:contact_id])
             @contact_reminder = ContactReminder.create(
                 reminder: @reminder,
-                contact: Contact.find(contact_reminder_params[:contact_id])
+                contact: @contact
             )
             flash[:notice] = "Successfully created!"
             redirect_to @contact
