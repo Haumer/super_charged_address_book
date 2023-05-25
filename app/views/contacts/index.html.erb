@@ -6,18 +6,12 @@
             (only admins see this)
         </div>
     <% end %>
+        <%= link_to "Create new Contact", new_contact_path, class: "button-success" %>
     <div class="contacts">
-        <%= turbo_frame_tag "contact-quick-create" do %>
-            <%= link_to "Create new Contact", new_contact_path, class: "button-success" %>
+        <% @contacts.each do |contact| %>
+            <%= render "contact", contact: contact %>
         <% end %>
-        <%= turbo_frame_tag "contacts" do %>
-            <% @contacts.each do |contact| %>
-                <%= turbo_frame_tag "contact-card", class: "contact-card" do %>
-                    <%= render "contact", contact: contact %>
-                <% end %>
-            <% end %>
-            <div class="contact-card-placeholder">
-            </div>
-        <% end %>
+        <div class="contact-card-placeholder">
+        </div>
     </div>
 </div>

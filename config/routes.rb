@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :group_contacts
     resources :notes, except: [ :destroy ]
     resources :contact_tags, except: [ :destroy ]
+    resources :reminders, only: [ :new, :edit ]
   end
   resources :notes, only: [ :destroy ]
   resources :groups

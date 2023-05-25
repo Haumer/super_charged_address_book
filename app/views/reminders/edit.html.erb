@@ -1,0 +1,5 @@
+<div class="col-sm-6 offset-sm-3 col-xs-10 offset-xs-1">
+    <h1>Reminder for <br>
+    <%= @reminder.contacts.first.full_name %></h1>
+    <%= render "form", reminder: @reminder, contact_reminder: @contact_reminder, pre_selected_contact_id: @pre_selected_contact_id %>
+</div>

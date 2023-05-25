@@ -1,8 +1,9 @@
 class Contact < ApplicationRecord
     before_destroy :destroy_reminders
+    before_save :sanitize_name
     has_many :user_contacts, dependent: :destroy
     has_many :contact_reminders, dependent: :destroy
-    has_many :reminders, through: :contact_reminders
+    has_many :reminders, through: :contact_reminders, dependent: :destroy
     has_many :notes, dependent: :destroy
     has_one :group_contact, dependent: :destroy
     has_one :group, through: :group_contact
@@ -40,5 +41,10 @@ class Contact < ApplicationRecord
 
     def destroy_reminders
         reminders.destroy_all
+    end
+
+    def sanitize_name
+        self.last_name = last_name.capitalize
+        self.first_name = first_name.capitalize
     end
 end

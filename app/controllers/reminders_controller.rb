@@ -1,5 +1,5 @@
 class RemindersController < ApplicationController
-    before_action :find_reminder, only: [ :show, :update ]
+    before_action :find_reminder, only: [ :show, :edit, :update ]
 
 
     def index
@@ -75,18 +75,13 @@ class RemindersController < ApplicationController
         ]
     end
 
-    def heatmap
-        @days = (Date.today - 7.day)..(Date.today + 35.day)
-        @reminders = current_user.reminders.where(
-            active: true, 
-        ).group_by_day(&:target_date)
-    end
-
     def new
         @reminder = Reminder.new
         @contact_reminder = ContactReminder.new
-        if params[:contact_id].present? && Contact.find_by(id: params[:contact_id])
-            @pre_selected_contact_id = current_user.contacts.find_by(id: params[:contact_id]).id
+        @pre_selected_contact_id = if params[:contact_id].present? && Contact.find_by(id: params[:contact_id])
+            current_user.contacts.find_by(id: params[:contact_id]).id
+        else
+            nil
         end
     end
 
@@ -94,17 +89,20 @@ class RemindersController < ApplicationController
         @reminder = Reminder.new(reminder_params)
         @reminder.user = current_user
         if @reminder.save
-            @contact_reminder = ContactReminder.new(contact_reminder_params)
-            @contact_reminder.reminder = @reminder
-            @contact_reminder.save
+            @contact_reminder = ContactReminder.create(
+                reminder: @reminder,
+                contact: Contact.find(contact_reminder_params[:contact_id])
+            )
             flash[:notice] = "Successfully created!"
-            redirect_to @reminder
+            redirect_to @contact
         else
             render :new
         end
     end
 
     def show; end
+
+    def edit; end
 
     def update
         if @reminder.update(reminder_params)
@@ -114,7 +112,7 @@ class RemindersController < ApplicationController
             flash[:notice] = "Successfully updated!"
             redirect_back(fallback_location: root_path)
         else
-
+            render :edit
         end
     end
 

@@ -2,4 +2,15 @@
     .back-link {
         margin-bottom: 16px;
     }
+    .links {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        gap: 4px;
+        .reminder-link,
+        .delete-link,
+        .edit-link {
+            width: 64px;
+        }
+    }
 }

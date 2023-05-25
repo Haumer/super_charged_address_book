@@ -1,3 +1,9 @@
-<div class="offset-md-4 col-md-4 col-sm-12">
+<div class="col-sm-6 offset-sm-3 col-xs-10 offset-xs-1">
+    <% if @pre_selected_contact_id %>
+        <h1>Reminder for <br>
+        <%= current_user.contacts.find(@pre_selected_contact_id).full_name %></h1>
+    <% else %>
+        <h1>New Reminder</h1>
+    <% end %>
     <%= render "form", reminder: @reminder, contact_reminder: @contact_reminder, pre_selected_contact_id: @pre_selected_contact_id %>
 </div>

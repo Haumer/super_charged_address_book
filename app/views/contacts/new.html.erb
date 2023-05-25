@@ -1,18 +1,7 @@
-<%= turbo_frame_tag "contact-quick-create" do %>
-    <%= simple_form_for Contact.new, data: { controller: "flatpickr" } do |f| %>
-        <div class="required-fields d-flex">
-            <div class="first-name">
-                <%= f.input :first_name, placeholder: "First Name", label: false, autofocus: true %>
-            </div>
-            <div class="last-name">
-                <%= f.input :last_name, placeholder: "Last Name", label: false %>
-            </div>
-        </div>
-        <div class="other-fields d-lg-flex d-md-none d-sm-none d-xs-none">
-            <%= f.input :email, placeholder: "Email", label: false %>
-            <%= f.input :phone_number, placeholder: "Phone Number", label: false %>
-            <%= f.input :birthday, as: :string, input_html: { data: { flatpickr_target: "selectDate" } }, placeholder: "Birthday", label: false %>
-        </div>
-        <%= f.submit "Create", class: "button-success" %>
-    <% end %>
+<%= link_to :back, class: "back-link" do %>
+    <i class="fa-light fa-arrow-left"></i> Back
 <% end %>
+<div class="new-contact-form col-sm-6 offset-sm-3 col-xs-10 offset-xs-1">
+    <h1>New Contact</h1>
+    <%= render "form", contact: @contact %>
+</div>

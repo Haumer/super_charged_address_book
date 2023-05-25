@@ -1,18 +1,51 @@
-<div class="col-sm-4 offset-sm-4">
-    Edit
-    <%= simple_form_for contact, data: { controller: "flatpickr" } do |f| %>
-        <div class="full-name-form-elements d-flex">
-            <div class="first-name">
-                <%= f.input :first_name, placeholder: "First Name", label: false, autofocus: true %>
-            </div>
-            <div class="last-name">
-                <%= f.input :last_name, placeholder: "Last Name", label: false %>
-            </div>
+<%= simple_form_for contact, data: { controller: "flatpickr" } do |f| %>
+    <div class="required-fields">
+        <div class="first-name">
+            <%= f.input :first_name, placeholder: "First Name", label: false, autofocus: true %>
         </div>
-        <%= f.input :birthday, as: :string, input_html: { data: { flatpickr_target: "selectDate" } }, placeholder: "Birthday", label: false %>
-        <%= f.input :email, placeholder: "Email", label: false %>
-        <%= f.input :phone_number, placeholder: "Phone Number", label: false %>
-        
-        <%= f.submit class: "button-success" %>
-    <% end %>
-</div>
+        <div class="last-name">
+            <%= f.input :last_name, placeholder: "Last Name", label: false %>
+        </div>
+    </div>
+    <%= f.input :birthday,
+        as: :string, 
+        input_html: { data: { flatpickr_target: "selectDate" } }, 
+        placeholder: "Birthday", 
+        label: false %>
+    <%= f.input :email, placeholder: "Email", label: false %>
+    <%= f.input :phone_number, placeholder: "Phone Number", label: false %>
+    
+    <%= f.submit class: "button-success" %>
+<% end %>
+
+
+<style>
+.new-contact-form {
+    background: white;
+    padding: 16px;
+}
+.required-fields {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+}
+.other-fields {
+    display: flex;
+    flex-direction: column;
+}
+.first-name,
+.last-name {
+    flex-grow: 2;
+}
+.form-control {
+    background: white;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #cfd0d2;
+}
+.form-control:focus {
+    border-color: #cfd0d2;
+    background: white;
+    box-shadow: 0px 2px #cfd0d2;
+}
+</style>

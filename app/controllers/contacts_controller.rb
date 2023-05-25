@@ -11,31 +11,15 @@ class ContactsController < ApplicationController
 
     def create
         @contact = Contact.new(contact_params)
-        respond_to do |format|
-            if @contact.save
-                UserContact.create(contact: @contact, user: current_user)
-                GroupContact.create(group: current_user.groups.find_by(name: "unassigned"), contact: @contact)
-                create_birthday_reminder if @contact.birthday.present?
-
-                format.turbo_stream do 
-                    render turbo_stream: [
-                        turbo_stream.update(
-                            "contact-quick-create", 
-                            partial: "contacts/contact_quick_new", 
-                            locals: { contact: Contact.new }
-                        ),
-                        turbo_stream.prepend(
-                            "contacts", 
-                            partial: "contacts/contact", 
-                            locals: { contact: @contact }
-                        )
-                    ]
-                end
-            else
-                format.turbo_stream do 
-                    render turbo_stream: turbo_stream.update("contact-quick-create", partial: "contacts/contact_quick_new", locals: { contact: @contact })
-                end
-            end
+        if @contact.save
+            UserContact.create(contact: @contact, user: current_user)
+            GroupContact.create(group: current_user.groups.find_by(name: "unassigned"), contact: @contact)
+            create_birthday_reminder if @contact.birthday.present?
+            flash[:notice] = "Successfully created!"
+            redirect_to @contact
+        else
+            flash[:alert] = "First Name or Last Name can't be blank!"
+            render :new
         end
     end
 
@@ -46,7 +30,7 @@ class ContactsController < ApplicationController
             flash[:notice] = "Successfully updated!"
             redirect_to @contact
         else
-            render :edit, status: :unprocessable_entity
+            render :edit
         end
     end
 

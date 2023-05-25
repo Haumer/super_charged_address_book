@@ -26,7 +26,7 @@ class UsersController < ApplicationController
             flash[:notice] = "Successfully created!"
             redirect_to contacts_path
         else
-            render :new, status: :unprocessable_entity
+            render :new
         end
     end
 
