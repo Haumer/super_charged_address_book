@@ -1,6 +1,6 @@
 <%= simple_form_for group do |f| %>
     <%= f.input :name %>
-    <%= f.input :interval %>
+    <%= f.input :interval, label: "Default Interval" %>
     <%= f.color_field :color, label: "Color", hint: "Set a color" %>
     <br>
     <%= f.submit class: "button-success" %>

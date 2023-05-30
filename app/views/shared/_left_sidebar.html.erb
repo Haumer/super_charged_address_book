@@ -1,0 +1,29 @@
+<div class="left-sidebar">
+    <%= link_to root_path, class: "sidebar-brand" do %>
+        <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="8" fill="#2C974B"/>
+            <rect x="5.59998" y="5.60001" width="9.6" height="9.6" rx="4" fill="white"/>
+            <rect x="19.2" y="5.60001" width="9.6" height="9.6" rx="4" fill="white"/>
+            <rect x="5.59998" y="19.2" width="9.6" height="9.6" rx="4" fill="white"/>
+            <rect x="19.2" y="19.2" width="9.6" height="9.6" rx="4" fill="white"/>
+            <rect x="32.8" y="19.2" width="9.6" height="9.6" rx="4" fill="white"/>
+            <rect x="19.2" y="32.8" width="9.6" height="9.6" rx="4" fill="white"/>
+            <rect x="32.8" y="32.8" width="9.6" height="9.6" rx="4" fill="white"/>
+        </svg>
+        Home
+    <% end %>
+    <div class="sidebar-links">
+        <% if check_action('new') || check_action('edit') %>
+            <%= link_to :back, class: "back-link" do %>
+                <i class="fa-light fa-arrow-left"></i> Back
+            <% end %>
+        <% else %>
+            <%= link_to  reminders_path, class: "sidebar-link #{'active' if check_controller_action('reminders', 'index')}" do %>
+                <i class="fa-light fa-bell"></i> Reminders
+            <% end %>
+            <%= link_to  contacts_path, class: "sidebar-link #{'active' if check_controller_action('contacts', 'index')}" do %>
+                <i class="fa-light fa-book"></i> Addressbook
+            <% end %>
+        <% end %>
+    </div>
+</div>

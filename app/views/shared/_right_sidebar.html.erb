@@ -1,0 +1,22 @@
+<div class="right-sidebar">
+    <%= link_to user_path(current_user), class: "user-profile" do %>
+        <%= nice_user_name(current_user) %>
+    <% end %>
+    <div class="sidebar-links">
+        <% if check_controller_action('contacts', 'index') %>
+            <div class="sidebar-link">
+                <%= link_to "Create a Contact", new_contact_path, class: "button-success" %>
+            </div>
+            <div class="sidebar-link">
+                <%= link_to "Create a Group", new_group_path, class: "button-success" %>
+            </div>
+            <div class="sidebar-link">
+                <%= link_to "Create a Tag", new_tag_path, class: "button-success" %>
+            </div>
+        <% elsif check_controller_action('reminders', 'index') %>
+            <div class="new-reminder">
+                <%= link_to "Create a Reminder", new_reminder_path, class: "button-success" %>
+            </div>
+        <% end %>
+    </div>
+</div>

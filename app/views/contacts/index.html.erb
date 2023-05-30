@@ -1,12 +1,4 @@
 <div class="contacts-container">
-    <% if current_user.admin? %>
-        <div class="admin-action" style="margin-bottom: 16px;">
-            <%= link_to "create fake contact", fake_contact_path, class: "button-secondary" %>
-            <%= link_to "delete fake contacts", destroy_fake_contacts_path, class: "button-secondary" %>
-            (only admins see this)
-        </div>
-    <% end %>
-        <%= link_to "Create new Contact", new_contact_path, class: "button-success" %>
     <div class="contacts">
         <% @contacts.each do |contact| %>
             <%= render "contact", contact: contact %>

@@ -1,7 +1,6 @@
-<%= link_to :back, class: "back-link" do %>
-    <i class="fa-light fa-arrow-left"></i> Back
-<% end %>
-<div class="new-contact-form col-sm-6 offset-sm-3 col-xs-10 offset-xs-1">
-    <h1>New Contact</h1>
-    <%= render "form", contact: @contact %>
+<div class="form-container">
+    <div class="new-contact-form">
+        <h1>New Contact</h1>
+        <%= render "form", contact: @contact %>
+    </div>
 </div>

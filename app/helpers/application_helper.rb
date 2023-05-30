@@ -1,11 +1,6 @@
 module ApplicationHelper
-    def time_distance(from_time, to_time, **options)
+    def time_distance(from_time, to_time)
         distance = distance_of_time_in_words(from_time, to_time)
-        return time_words = "#{' ' if options[:space]}today#{' ' if options[:space]}" if from_time == to_time
-
-        time_words = from_time > to_time ? 
-            "#{' ' if options[:space]}#{distance} ago#{' ' if options[:space]}" : 
-            "#{' ' if options[:space]}in #{distance}#{' ' if options[:space]}"
     end
 
     def time_period(from_time, to_time, **options)
@@ -16,9 +11,29 @@ module ApplicationHelper
         group == "last_week" || group == "this_week" ? "%A, %b %d" : "%b %d, %Y"
     end
 
+    def format_date(date)
+        date_is_tomorrow(date)
+    end
+
+    def date_is_tomorrow(date)
+        date == (Date.tomorrow) ? "Tomorrow" :  date.strftime("%B %e, %A")
+    end
+
     def display_completed_reminders(reminders)
         return unless reminders.present?
 
         "(#{reminders.count(&:contacted)}/#{reminders.count})"
+    end
+
+    def nice_user_name(user)
+        user.email.split("@").first
+    end
+
+    def check_controller_action(controller, action)
+        controller == params[:controller] && action == params[:action]
+    end
+
+    def check_action(action)
+        action == params[:action]
     end
 end

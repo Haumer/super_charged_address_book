@@ -1,0 +1,39 @@
+.right-sidebar,
+.left-sidebar {
+    width: 20%;
+    i {
+        margin-right: 1rem;
+        color: rgb(199, 199, 199);
+    }
+    .user-profile,
+    .sidebar-brand {
+        font-weight: bolder;
+        width: 100%;
+        display: block;
+        padding-bottom: 4rem;
+    }
+    .sidebar-link {
+        height: 48px;
+        display: block;
+        &.active {
+            color: #2ea44f;
+            i {
+                color: #2ea44f !important;
+            }
+        }
+    }
+}
+.center-column,
+.right-side-bar,
+.left-side-bar {
+    height: 100vh;
+    overflow: auto;
+}
+
+.left-sidebar,
+.right-sidebar {
+    width: 18vw;
+}
+.right-sidebar {
+    margin-left: 1.5rem;
+}

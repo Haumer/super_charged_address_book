@@ -8,13 +8,16 @@
         justify-content: space-between;
     }
 } 
+
 .contacts {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin: 4px;
+    flex-direction: column;
     background-color: white;
-    padding: 16px;
+    padding: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    width: 100%;
     .top-level-details {
         font-size: 14px;
         display: flex;

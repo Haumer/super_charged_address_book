@@ -1,103 +1,136 @@
-<div class="reminder-container">
-    <div class="time-periods">
-        <section class="time-period last-seven-days">
-            <div class="time-period-name">
-                Last 7 Days
-            </div>
-            <div class="time-period-reminder">
-                <div class="time-period-reminders-details last-seven-days">
-                    <% @last_seven_days_reminders.each do |reminder| %>
-                        <%= render "reminder", reminder: reminder, time_period: "last-seven-days" %>
-                    <% end %>
+<div class="reminders-container">
+    <div class="center-column">
+        <div class="today">
+            <div class="top-tabs">
+                <div class="day active tab" data-tab="today">
+                    TODAY
+                </div>
+                <div class="upcoming tab" data-tab="actions">
+                    ACTIONS
                 </div>
             </div>
-        </section>
-        <section class="time-period today">
-            <div class="time-period-name">
-                Today
-            </div>
-            <div class="time-period-reminder">
-                <div class="time-period-reminders-details today">
-                    <% if @todays_reminders.present? %>
-                        <% @todays_reminders.each do |reminder| %>
-                            <%= render "reminder", reminder: reminder, time_period: "today" %>
-                        <% end %>
-                    <% else %>
-                        All caught up for today!
-                    <% end %>
+            <div class="tab-content hidden"  data-tab="actions">
+                <div class="tab-header">
+                    Actions
                 </div>
+                You are all set!
             </div>
-        </section>
-        <section class="time-period take-action">
-            <div class="time-period-name">
-                Take Action
-            </div>
-            <div class="time-period-reminder">
-                <div class="reminder-take-action">
-                    <% if current_user.unassigned_contacts.count.zero? && !current_user.contacts_without_active_reminders.present? && !current_user.next_contacts_birthday.present? %>
-                        Doesnt look like you have any contacts...
-                            <%= link_to new_contact_path, class: "button-secondary" do %>
-                            <i class="fa-regular fa-square-plus"></i> add one now!
-                        <% end %>
-                    <% end %>
-                    <div class="cleanup-contacts-take-action">
-                        <% if current_user.unassigned_contacts.count > 0 %>
-                            Cleanup Address book: <br>
-                            <%= link_to contacts_path, class: "button-secondary" do %>
-                                <%= pluralize(current_user.unassigned_contacts.count, "unassigned contact") %> 
-                            <% end %>
-                        <% end %>
-                    </div>
-                    <div class="contact-take-action">
-                        <% if current_user.contacts_without_active_reminders.present? && @random_contacts_without_active_reminders.count == 3%>
-                            Contacts without reminders: <br>
-                            <% current_user.daily_action.contacts.each do |contact, index| %>
-                                <%= link_to new_reminder_path(contact_id: contact), class: "button-secondary" do %>
+            <div class="today-reminders tab-content" data-tab="today">
+                <div class="tab-header">
+                    Today
+                </div>
+                <div class="reminders">
+                    <% @today_reminders.each do |reminder| %>
+                        <div class="reminder-row">
+                            <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
+                                <% if reminder.contacted? %>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                <% else %>
+                                    <i class="fa-solid fa-clock"></i>
+                                <% end %>
+                                <% reminder.contacts.each do |contact| %>
                                     <%= contact.full_name %>
                                 <% end %>
                             <% end %>
-                        <% end %>
-                    </div>
-                    <div class="next-birthday">
-                        <% if current_user.next_contacts_birthday.present? %>
-                            Upcoming birthday: <br>
-                            <% if current_user.next_contacts_birthday.birthday_reminder_set? %>
-                                <%= link_to reminder_path(current_user.next_contacts_birthday.reminders.find_by(birthday_reminder: true)), class: "button-secondary" do %>
-                                    <%= current_user.next_contacts_birthday.full_name %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+        <div class="tomorrow">
+            <div class="tomorrow-reminders">
+                <div class="date">
+                    Tomorrow
+                </div>
+                <div class="completion-progress">
+                </div>
+                <div class="reminders">
+                    <% @tomorrow_reminders.each do |reminder| %>
+                        <div class="reminder-row">
+                            <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
+                                <% if reminder.contacted? %>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                <% else %>
+                                    <i class="fa-solid fa-clock"></i>
                                 <% end %>
-                            <% else %>
-                                <%= link_to new_reminder_path(contact_id: current_user.next_contacts_birthday), class: "button-secondary" do %>
-                                    <%= current_user.next_contacts_birthday.full_name %>
+                                <% reminder.contacts.each do |contact| %>
+                                    <%= contact.full_name %>
                                 <% end %>
                             <% end %>
-                        <% end %>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="time-period next-seven-days">
-            <div class="time-period-name">
-                Next 7 Days
-            </div>
-            <div class="time-period-reminder">
-                <div class="time-period-reminders-details next-seven-days">
-                    <% @next_seven_days_reminders.each do |reminder| %>
-                        <%= render "reminder", reminder: reminder, time_period: "next-seven-days" %>
+                        </div>
                     <% end %>
                 </div>
             </div>
-        </section>
-        <section class="time-period next-seven-days">
-            <div class="time-period-name">
-                Next 30 Days
-            </div>
-            <div class="time-period-reminder">
-                <div class="time-period-reminders-details next-thirty-days">
-                    <% @next_thirty_days_reminders.each do |reminder| %>
-                        <%= render "reminder", reminder: reminder, time_period: "next-thirty-days" %>
+        </div>
+        <% @future_reminders.each do |day, reminders| %>
+            <div class="future-reminders">
+                <div class="date-distance">
+                    <%= time_distance(Date.today, day + 1.day) %>
+                </div>
+                <div class="date">
+                    <%= format_date(day + 1.day) %>
+                </div>
+                <div class="reminders">
+                    <% reminders.each do |reminder| %>
+                        <div class="reminder-row">
+                            <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
+                                <% if reminder.contacted? %>
+                                    <i class="fa-solid fa-circle-check"></i>
+                                <% else %>
+                                    <i class="fa-solid fa-clock"></i>
+                                <% end %>
+                                <% reminder.contacts.each do |contact| %>
+                                    <%= contact.full_name %>
+                                <% end %>
+                            <% end %>
+                        </div>
                     <% end %>
                 </div>
             </div>
-        </section>
+        <% end %>
     </div>
 </div>
+
+<script>
+if(!(typeof tabs !== "undefined")) {
+    let tabs = document.querySelectorAll(".tab");
+    let contentTabs = document.querySelectorAll(".tab-content")
+    if(typeof localStorage.getItem("activeTab") !== "undefined") {
+        tabs.forEach(tab => {
+            if(tab.dataset.tab === localStorage.activeTab) {
+                tab.classList.add("active")
+                contentTabs.forEach(contentTab =>{
+                    contentTab.classList.add("hidden")
+                    console.log(contentTab)
+                    if(contentTab.dataset.tab === tab.dataset.tab) {
+                        contentTab.classList.remove("hidden")
+                    }
+                })
+            } else {
+                tab.classList.remove("active")
+                contentTabs.forEach(contentTab =>{
+                    contentTab.classList.remove("hidden")
+                    if(contentTab.dataset.tab === tab.dataset.tab) {
+                        contentTab.classList.add("hidden")
+                    }
+                })
+            }
+        })
+    }
+    tabs.forEach(tab => {
+        tab.addEventListener("click", (e) => {
+           if(!tab.classList.contains("active")) {
+                tabs.forEach(itab => { itab.classList.remove("active") })
+                localStorage.setItem("activeTab", tab.dataset.tab)
+                tab.classList.add("active")
+                contentTabs.forEach(contentTab =>{
+                    contentTab.classList.add("hidden")
+                    if(contentTab.dataset.tab === tab.dataset.tab) {
+                        contentTab.classList.remove("hidden")
+                    }
+                })
+           }
+        })
+    })
+}
+</script>
