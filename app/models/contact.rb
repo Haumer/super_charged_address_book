@@ -40,7 +40,7 @@ class Contact < ApplicationRecord
     end
 
     def destroy_reminders
-        reminders.destroy_all
+        Reminder.find(self.reminders.pluck(:id)).each { |r| r.destroy }
     end
 
     def sanitize_name
