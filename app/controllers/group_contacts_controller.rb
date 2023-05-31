@@ -9,7 +9,7 @@ class GroupContactsController < ApplicationController
         @group_contact.contact = Contact.find(params[:contact_id])
         if @group_contact.save
             flash[:notice] = "Successfully created!"
-            redirect_to @group_contact.group.user
+            redirect_to @group_contact.contact
         else
             flash[:alert] = "Something went wrong!"
             render :new
