@@ -7,10 +7,21 @@
     width: 20vw;
 }
 .mobile-navbar {
-    display: block;
+    display: none;
 }
+.app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    padding: 2rem 1rem;
+    background-color: rgb(249, 248, 249);
+    gap: 1rem;
+  }
 
 @media (max-width: 800px) {
+    .app-container {
+        display: block;
+    }
     .center-container {
         width:100%;
     }
