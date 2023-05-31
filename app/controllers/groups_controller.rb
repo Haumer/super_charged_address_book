@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
         @group.user = current_user
         if @group.save
             flash[:notice] = "Successfully created!"
-            redirect_to @group
+            redirect_to contacts_path
         else
             render :new
         end
