@@ -6,3 +6,20 @@
 .right-sidebar {
     width: 20vw;
 }
+.mobile-navbar {
+    display: block;
+}
+
+@media (max-width: 800px) {
+    .center-container {
+        width:100%;
+    }
+    
+    .left-sidebar,
+    .right-sidebar {
+        display: none;
+    }
+    .mobile-navbar {
+        display: block;
+    }
+}
