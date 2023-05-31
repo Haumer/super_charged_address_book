@@ -46,21 +46,22 @@ a {
         padding-top: 4px;
     }
 }
-.contacts-container ,
-.contact-profile,
-.form-container,
-.reminders-container {
+
+.wrapper {
     width: 100%;
+    gap: 1rem;
+    border-radius: 1rem;
 }
-.contacts-container,
-.reminders-container {
+.contacts-wrapper,
+.reminders-wrapper {
     display: flex;
     min-height: calc(100vh - 4rem);
 }
-.contact-profile {
+.contact-profile-wrapper {
     min-height: calc(100vh - 106px);
     background: white;
-    padding: 16px;
+    padding: 2rem;
+    border-radius: 1rem;
 }
 .hidden { 
     display: none;

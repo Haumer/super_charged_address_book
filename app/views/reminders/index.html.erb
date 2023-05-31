@@ -1,94 +1,59 @@
-<div class="reminders-container">
-    <div class="center-column">
-        <div class="today">
-            <div class="top-tabs">
-                <div class="day active tab" data-tab="today">
-                    TODAY
-                </div>
-                <div class="upcoming tab" data-tab="actions">
-                    ACTIONS
-                </div>
+<div class="reminders-wrapper wrapper">
+    <div class="today">
+        <div class="top-tabs">
+            <div class="day active tab" data-tab="today">
+                TODAY
             </div>
-            <div class="tab-content hidden"  data-tab="actions">
-                <div class="tab-header">
-                    Actions
-                </div>
-                You are all set!
-            </div>
-            <div class="today-reminders tab-content" data-tab="today">
-                <div class="tab-header">
-                    Today
-                </div>
-                <div class="reminders">
-                    <% @today_reminders.each do |reminder| %>
-                        <div class="reminder-row">
-                            <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
-                                <% if reminder.contacted? %>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                <% else %>
-                                    <i class="fa-solid fa-clock"></i>
-                                <% end %>
-                                <% reminder.contacts.each do |contact| %>
-                                    <%= contact.full_name %>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    <% end %>
-                </div>
+            <div class="upcoming tab" data-tab="actions">
+                ACTIONS
             </div>
         </div>
+        <div class="tab-content hidden"  data-tab="actions">
+            <div class="tab-header">
+                Actions
+            </div>
+            You are all set!
+        </div>
+        <div class="today-reminders tab-content" data-tab="today">
+            <div class="tab-header">
+                Today
+            </div>
+            <div class="reminders">
+                <% @today_reminders.each do |reminder| %>
+                    <%= render "reminder", reminder: reminder, display_name: true %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+    <% if @tomorrow_reminders.present? %>
         <div class="tomorrow">
             <div class="tomorrow-reminders">
                 <div class="date">
                     Tomorrow
                 </div>
-                <div class="completion-progress">
-                </div>
                 <div class="reminders">
                     <% @tomorrow_reminders.each do |reminder| %>
-                        <div class="reminder-row">
-                            <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
-                                <% if reminder.contacted? %>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                <% else %>
-                                    <i class="fa-solid fa-clock"></i>
-                                <% end %>
-                                <% reminder.contacts.each do |contact| %>
-                                    <%= contact.full_name %>
-                                <% end %>
-                            <% end %>
-                        </div>
+                        <%= render "reminder", reminder: reminder, display_name: true %>
                     <% end %>
                 </div>
             </div>
         </div>
-        <% @future_reminders.each do |day, reminders| %>
-            <div class="future-reminders">
-                <div class="date-distance">
-                    <%= time_distance(Date.today, day + 1.day) %>
-                </div>
-                <div class="date">
-                    <%= format_date(day + 1.day) %>
-                </div>
-                <div class="reminders">
-                    <% reminders.each do |reminder| %>
-                        <div class="reminder-row">
-                            <%= link_to reminder_path(reminder, {reminder: {contacted: !reminder.contacted}}), data: {"turbo-method": :patch} do %>
-                                <% if reminder.contacted? %>
-                                    <i class="fa-solid fa-circle-check"></i>
-                                <% else %>
-                                    <i class="fa-solid fa-clock"></i>
-                                <% end %>
-                                <% reminder.contacts.each do |contact| %>
-                                    <%= contact.full_name %>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    <% end %>
-                </div>
+    <% end %>
+    <% @future_reminders.each do |day, reminders| %>
+        <div class="future-reminders">
+            <div class="date-distance">
+                <%= time_distance(Date.today, day + 1.day) %>
             </div>
-        <% end %>
-    </div>
+            <div class="date">
+                <%= format_date(day + 1.day) %>
+            </div>
+            <div class="reminders">
+                <% reminders.each do |reminder| %>
+                    <%= render "reminder", reminder: reminder, display_name: true %>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
 </div>
 
 <script>
@@ -101,7 +66,6 @@ if(!(typeof tabs !== "undefined")) {
                 tab.classList.add("active")
                 contentTabs.forEach(contentTab =>{
                     contentTab.classList.add("hidden")
-                    console.log(contentTab)
                     if(contentTab.dataset.tab === tab.dataset.tab) {
                         contentTab.classList.remove("hidden")
                     }

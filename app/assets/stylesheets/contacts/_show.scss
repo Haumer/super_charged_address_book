@@ -1,18 +1,77 @@
-.contact-profile {
-    .back-link {
-        margin-bottom: 16px;
-        height: 32px;
-        width: 32px;
-    }
-    .links {
-        display: flex;
-        justify-content: space-around;
-        text-align: center;
-        gap: 4px;
-        .reminder-link,
-        .delete-link,
-        .edit-link {
-            width: 64px;
+.contact-profile-wrapper {
+    .section-header {
+        font-size: 24px;
+        .full-name {
+            font-weight: bolder;
         }
+    }
+    .full-name-and-group {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    @media (max-width: 500px) {
+        .full-name-and-group {
+            display: block;
+        }
+    }
+    .contact-fields {
+        display: flex;
+        flex-direction: column;
+        .contact-field {
+            font-size: 16px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #cfd0d2;
+            .contact-field-name {
+                font-size: 14px;
+                width: 120px;
+                text-align: right;
+                color: #737373;
+                text-transform: capitalize;
+            }
+            .contact-field-value {
+                padding-left: 8px;
+            }
+        }
+        .contact-field:last-of-type {
+            border-bottom: none;
+        }
+    }
+    .contact-fields,
+    .contact-profile-reminders,
+    .contact-profile-notes {
+        margin-bottom: 16px;
+    }
+    .contact-fields,
+    .contact-profile-reminders {
+        border-bottom: 1px solid #cfd0d2;
+    }
+    .contact-profile-reminders {
+        min-height: 48px;
+        padding: 1rem;
+    }
+    .active-reminders,
+    .inactive-reminders {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        width: 50%;
+    }
+    @media (max-width: 500px) {
+        .inactive-reminders,
+        .active-reminders {
+            width: 100%;
+        }
+    }
+}
+@media (max-width: 500px) {
+    .trix-button-row {
+        flex-wrap: wrap !important;
+    }
+    .active-reminders {
+        width: 100%;
     }
 }

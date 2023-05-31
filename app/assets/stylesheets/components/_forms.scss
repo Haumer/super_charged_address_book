@@ -1,7 +1,64 @@
 .new-tag-form,
 .new-contact-form,
-.new-group-form {
+.new-group-form,
+.new-reminder-form {
     background: white;
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 1rem;
+}
+
+.required-fields {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+}
+.other-fields {
+    display: flex;
+    flex-direction: column;
+}
+.first-name,
+.last-name {
+    flex-grow: 2;
+}
+.form-control {
+    background: white;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #cfd0d2;
+}
+.form-control:focus {
+    border-color: #cfd0d2;
+    background: white;
+    box-shadow: 0px 2px #cfd0d2;
+}
+.tag-item {
+    margin-bottom: 4px;
+    margin-right: 4px;
+}
+.tag-selector + label {
+    transition: 0.3s all ease-in-out;
+    opacity: 0.9;
+    border: 2px solid transparent;
+}
+.tag-selector:checked + label {
+    opacity: 1;
+    border: 2px solid black;
+}
+
+.name-and-color {
+    display: flex;
+    gap: 4px;
+    .group_name {
+        flex: 3
+    }
+}
+.new_tag {
+    .tag_color > legend {
+        display: none
+    }
+}
+.new_group {
+    .group_color > legend {
+        display: none
+    }
 }

@@ -1,0 +1,21 @@
+.contacts-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-color: white;
+    overflow: hidden;
+    width: 100%;
+    .contacts {
+        padding: 0 2rem;
+    }
+    .top-tabs {
+        width: 100%;
+        display: flex;
+    }
+    .top-level-details {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+}

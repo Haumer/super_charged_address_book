@@ -1,12 +1,30 @@
-<%= link_to contact_path(contact), class: "contact-card" do %>
+<%= link_to contact_path(contact),
+    class: "contact-card",
+    data: { 
+        contactsfilter_target: "contactCard",
+        tags: contact.tags.map(&:name).map(&:downcase),
+        groups: contact.groups.map(&:name).map(&:downcase),
+        first_name: contact.first_name.downcase,
+        last_name: contact.last_name.downcase,
+        full_name: contact.full_name.downcase
+    } do %>
     <div class="contact-card-top">
         <div class="full-name">
             <%= contact.full_name %>
         </div>
         <div class="top-level-details">
-            <div class="group" style="border-bottom: 1px solid <%= contact.group.color %>">
-                <% unless contact.group.name == "unassigned" %>
-                    <%= contact.group.name %>
+            <% if display_group %>
+                <% contact.groups.each do |group| %>
+                    <% unless group.name == "unassigned" %>
+                        <div class="group" style="border-bottom: 1px solid <%= group.color %>">
+                            <%= group.name.capitalize %>
+                        </div>
+                    <% end %>
+                <% end %>
+            <% end %>
+            <div class="tags">
+                <% contact.tags.each do |tag| %>
+                    <%= tag.name %>
                 <% end %>
             </div>
             <div class="reminder">

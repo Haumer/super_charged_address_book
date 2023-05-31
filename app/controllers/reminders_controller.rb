@@ -6,13 +6,11 @@ class RemindersController < ApplicationController
         @today_reminders = current_user.reminders.where(
             active: true, 
             target_date: Date.today
-        )
+        ).order(created_at: :asc)
         @tomorrow_reminders = current_user.reminders.where(
             active: true, 
             target_date: Date.tomorrow
-        ).order(
-            created_at: :asc
-        )
+        ).order(created_at: :asc)
         @future_reminders = current_user.reminders.order(
             created_at: :asc
         ).group_by_day(

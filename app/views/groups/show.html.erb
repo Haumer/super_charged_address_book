@@ -1,3 +1,13 @@
-<div class="offset-md-4 col-md-4 col-sm-12">
-    <%= render "form", group: @group %>
+<div class="group-wrapper">
+    <% @group.contacts.each do |contact| %>
+        <%= render "contacts/contact", contact: contact, display_group: false %>
+    <% end %>
 </div>
+
+<style>
+.group-wrapper {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+</style>

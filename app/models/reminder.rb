@@ -6,7 +6,17 @@ class Reminder < ApplicationRecord
 
   validates :target_date, presence: true
 
-  INTERVALS = [["Once", -1],["Every Day", 1], ["Twice A week", 3], ["Once A Week", 7], ["Every Two Weeks", 14], ["Once A Month", 30]]
+  INTERVALS = [
+    ["Once", -1],
+    ["Every Day", 1], 
+    ["Twice A week", 3], 
+    ["Once A Week", 7], 
+    ["Every Two Weeks", 14], 
+    ["Once A Month", 30],
+    ["Every 3 Months", 90],
+    ["Every 6 Months", 182],
+    ["Every Year", 365],
+  ]
 
   def self.next_bday(bday, additional_years: 0)
     Date.new(Date.today.year + additional_years, bday.month, bday.day)

@@ -6,6 +6,7 @@ class GroupContactsController < ApplicationController
 
     def create
         @group_contact = GroupContact.new(group_contact_params)
+        @group_contact.contact = Contact.find(params[:contact_id])
         if @group_contact.save
             flash[:notice] = "Successfully created!"
             redirect_to @group_contact.group.user

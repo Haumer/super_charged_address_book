@@ -5,8 +5,8 @@ class Contact < ApplicationRecord
     has_many :contact_reminders, dependent: :destroy
     has_many :reminders, through: :contact_reminders, dependent: :destroy
     has_many :notes, dependent: :destroy
-    has_one :group_contact, dependent: :destroy
-    has_one :group, through: :group_contact
+    has_many :group_contact, dependent: :destroy
+    has_many :groups, through: :group_contact
     has_many :contact_tags, dependent: :destroy
     has_many :tags, through: :contact_tags
     

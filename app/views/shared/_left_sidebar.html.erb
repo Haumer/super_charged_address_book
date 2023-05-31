@@ -1,4 +1,4 @@
-<div class="left-sidebar">
+<% if user_signed_in? %>
     <%= link_to root_path, class: "sidebar-brand" do %>
         <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="48" height="48" rx="8" fill="#2C974B"/>
@@ -13,17 +13,16 @@
         Home
     <% end %>
     <div class="sidebar-links">
-        <% if check_action('new') || check_action('edit') %>
-            <%= link_to :back, class: "back-link" do %>
+        <% if check_action('new') || check_action('edit') || check_action('show') %>
+            <%= link_to :back, class: "sidebar-link back-link" do %>
                 <i class="fa-light fa-arrow-left"></i> Back
             <% end %>
-        <% else %>
-            <%= link_to  reminders_path, class: "sidebar-link #{'active' if check_controller_action('reminders', 'index')}" do %>
-                <i class="fa-light fa-bell"></i> Reminders
-            <% end %>
-            <%= link_to  contacts_path, class: "sidebar-link #{'active' if check_controller_action('contacts', 'index')}" do %>
-                <i class="fa-light fa-book"></i> Addressbook
-            <% end %>
+        <% end %>
+        <%= link_to  reminders_path, class: "sidebar-link #{'active' if check_controller_action('reminders', 'index')}" do %>
+            <i class="fa-light fa-bell"></i> Reminders
+        <% end %>
+        <%= link_to  contacts_path, class: "sidebar-link #{'active' if check_controller_action('contacts', 'index')}" do %>
+            <i class="fa-light fa-book"></i> Addressbook
         <% end %>
     </div>
-</div>
+<% end %>

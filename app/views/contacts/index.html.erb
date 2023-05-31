@@ -1,9 +1,64 @@
-<div class="contacts-container">
-    <div class="contacts">
+<div class="contacts-wrapper wrapper" data-controller="contactsFilter">
+    <div class="top-tabs">
+        <div class="day active tab"
+            data-tab="allContacts" 
+            data-contactsFilter-target="allContacts" 
+            data-action="click->contactsFilter#showContacts">
+            ALL CONTACTS
+        </div>
+        <div class="upcoming tab" 
+            data-tab="filter" 
+            data-contactsFilter-target="filter" 
+            data-action="click->contactsFilter#showFilters">
+            FILTER
+        </div>
+    </div>
+    <div class="tab-content hidden" data-contactsFilter-target="filters">
+        <div class="search-contacts">
+            <input type="text" 
+                class="search-input"
+                data-contactsFilter-target="contactSearch" 
+                data-action="input->contactsFilter#search"
+                placeholder="Search your contacts">
+        </div>
+    </div>
+    <div class="contacts" data-contactsFilter-target="allContacts">
         <% @contacts.each do |contact| %>
-            <%= render "contact", contact: contact %>
+            <%= render "contact", contact: contact, display_group: true; %>
         <% end %>
+        <div class="empty-search hidden" data-contactsFilter-target="emptySearch">
+            Couldnt Find Anything
+        </div>
         <div class="contact-card-placeholder">
         </div>
     </div>
 </div>
+
+<style>
+.transition-style {
+    opacity: 0.5;
+    height: 10px;
+}
+.search-contacts {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 64px;
+}
+.search-input {
+    width: 100%;
+    margin: 0 2rem;
+    background: white;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid #cfd0d2;
+}
+.search-input:focus {
+    border-color: #cfd0d2;
+    background: white;
+    box-shadow: 0px 2px #cfd0d2;
+}
+.search-input:focus-visible {
+    outline: none;
+}
+</style>
