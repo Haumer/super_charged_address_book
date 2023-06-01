@@ -62,3 +62,17 @@
         display: none
     }
 }
+.group-contact-form {
+    .form-select {
+        border-top-left-radius: 6px !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-left-radius: 6px !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    .select {
+        line-height: 20px;
+        background: white;
+        background-image: none !important;
+        margin: 0 !important;
+    }
+}

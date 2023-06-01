@@ -27,16 +27,7 @@ export default class extends Controller {
     let selectedCards = []
     let rejectedCards = []
     this.contactCardTargets.forEach(card => {
-
-      if(card.dataset.firstName.includes(searchTerm)) {
-        selectedCards.push(card)
-      }
-      if(card.dataset.lastName.includes(searchTerm)) {
-        selectedCards.push(card)
-      }
-      if(card.dataset.fullName.includes(searchTerm)) {
-        selectedCards.push(card)
-      }
+      this.checkFirstNameLastNameAndFullName(card, searchTerm) && selectedCards.push(card)
       JSON.parse(card.dataset.groups).forEach(group => {
         if(group.includes(searchTerm)) {
           selectedCards.push(card)
@@ -47,28 +38,41 @@ export default class extends Controller {
           selectedCards.push(card)
         }
       })
-      if(!selectedCards.includes(card)) {
-        rejectedCards.push(card)
-      }
+      !selectedCards.includes(card) && rejectedCards.push(card)
     })
-    rejectedCards.forEach(card => {
+    this.hideCards(rejectedCards)
+    this.showCards(selectedCards)
+    this.showOrHideEmptySearchDiv(selectedCards.length)
+  }
+
+  hideCards(cardsArray) {
+    cardsArray.forEach(card => {
       card.classList.add("transition-out-style")
       this.sleep(300).then(()=> {
         card.classList.add("hidden")
         card.classList.remove("transition-out-style")
       })
     })
-    selectedCards.forEach(card => {
+  }
+  
+  showCards(cardsArray) {
+    cardsArray.forEach(card => {
       card.classList.add("transition-in-style")
       this.sleep(300).then(()=> {
         card.classList.remove("hidden")
         card.classList.remove("transition-in-style")
       })
     })
-    this.showOrHideEmptySearchDiv(selectedCards.length)
   }
+
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  checkFirstNameLastNameAndFullName(card, searchTerm) {
+    return card.dataset.firstName.includes(searchTerm) ||
+      card.dataset.lastName.includes(searchTerm) ||
+      card.dataset.fullName.includes(searchTerm)
   }
 
   showOrHideEmptySearchDiv(resultsLength) {
