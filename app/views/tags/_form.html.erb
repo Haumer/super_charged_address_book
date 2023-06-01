@@ -1,4 +1,4 @@
-<%= simple_form_for tag do |f| %>
+<%= simple_form_for tag, data: { controller: :color } do |f| %>
     <%= f.input :name, label: false, placeholder: "Tag Name" %>
     <%= f.input :color, 
         collection: Tag::COLORS,

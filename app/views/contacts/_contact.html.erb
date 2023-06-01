@@ -1,7 +1,7 @@
 <%= link_to contact_path(contact),
     class: "contact-card",
     data: { 
-        contactsfilter_target: "contactCard",
+        contacts_filter_target: "contactCard",
         tags: contact.tags.map(&:name).map(&:downcase),
         groups: contact.groups.map(&:name).map(&:downcase),
         first_name: contact.first_name.downcase,

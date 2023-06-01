@@ -1,32 +1,32 @@
-<div class="contacts-wrapper wrapper" data-controller="contactsFilter">
+<div class="contacts-wrapper wrapper" data-controller="contacts-filter">
     <div class="top-tabs">
         <div class="day active tab"
             data-tab="allContacts" 
-            data-contactsFilter-target="allContacts" 
-            data-action="click->contactsFilter#showContacts">
+            data-contacts-filter-target="allContacts" 
+            data-action="click->contacts-filter#showContacts">
             ALL CONTACTS
         </div>
         <div class="upcoming tab" 
             data-tab="filter" 
-            data-contactsFilter-target="filter" 
-            data-action="click->contactsFilter#showFilters">
+            data-contacts-filter-target="filter" 
+            data-action="click->contacts-filter#showFilters">
             FILTER
         </div>
     </div>
-    <div class="tab-content hidden" data-contactsFilter-target="filters">
+    <div class="tab-content hidden" data-contacts-filter-target="filters">
         <div class="search-contacts">
-            <input type="text" 
+            <input type="text"
                 class="search-input"
-                data-contactsFilter-target="contactSearch" 
-                data-action="input->contactsFilter#search"
+                data-contacts-filter-target="contactSearch" 
+                data-action="input->contacts-filter#search"
                 placeholder="Search your contacts, groups and tags">
         </div>
     </div>
-    <div class="contacts" data-contactsFilter-target="allContacts">
+    <div class="contacts" data-contacts-filter-target="allContacts">
         <% @contacts.each do |contact| %>
             <%= render "contact", contact: contact, display_group: true; %>
         <% end %>
-        <div class="empty-search hidden" data-contactsFilter-target="emptySearch">
+        <div class="empty-search hidden" data-contacts-filter-target="emptySearch">
             Couldnt Find Anything
         </div>
         <div class="contact-card-placeholder">
@@ -35,9 +35,13 @@
 </div>
 
 <style>
-.transition-style {
-    opacity: 0.5;
-    height: 10px;
+.transition-out-style {
+    opacity: 0;
+    height: 0px;
+}
+.transition-in-style {
+    opacity: 1;
+    height: 64px;
 }
 .search-contacts {
     display: flex;

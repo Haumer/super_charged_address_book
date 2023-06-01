@@ -40,6 +40,7 @@ a {
 }
 .contacts-wrapper,
 .reminders-wrapper {
+    padding-bottom: 3rem;
     display: flex;
     min-height: calc(100vh - 4rem);
 }

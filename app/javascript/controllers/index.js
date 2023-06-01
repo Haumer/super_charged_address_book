@@ -4,8 +4,11 @@
 
 import { application } from "./application"
 
-import FlatpickrController from "./flatpickr_controller"
-application.register("flatpickr", FlatpickrController)
+import ColorController from "./color_controller"
+application.register("color", ColorController)
 
 import ContactsFilterController from "./contacts_filter_controller"
-application.register("contactsFilter", ContactsFilterController)
+application.register("contacts-filter", ContactsFilterController)
+
+import FlatpickrController from "./flatpickr_controller"
+application.register("flatpickr", FlatpickrController)

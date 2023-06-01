@@ -10,6 +10,7 @@ class Group < ApplicationRecord
     ["Tropical Indigo", "#9593D9"],
     ["Celestial Blue", "#20A4F3"],
     ["Delft Blue", "#414770"],
+    ["YlnMn Blue", "#345995"],
     ["Russian Violet", "#372248"],
     ["Burgundy", "#74121D"],
     ["Vermillion", "#FF312E"],
