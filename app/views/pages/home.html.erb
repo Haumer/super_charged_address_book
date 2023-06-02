@@ -14,13 +14,13 @@
                     <%= link_to "Check your Reminders", reminders_path, class: "button-success" %>
                     <%= link_to "Manage your Contacts", contacts_path, class: "button-secondary" %>
                     <% if current_user.groups.count == 1 %>
-                        You only have one group (<%= current_user.groups.first.name %>), consider <%= link_to "organizing them into groups ", new_group_path, class: "text_link" %>
+                        You only have one group (<%= current_user.groups.first.name %>), consider <%= link_to "organizing them into groups ", new_group_path, class: "button-success" %>
                     <% else %>
                     <% end %>
                 <% end %>
             <% end %>
         <% else %>
-            you need to <%= link_to "Login", new_user_session_path, class: "text-link" %> or <%= link_to "Signup", new_user_registration_path, class: "text-link" %>
+            you need to <%= link_to "Login", new_user_session_path, class: "button-success" %> or <%= link_to "Signup", new_user_registration_path, class: "button-secondary" %>
         <% end %>
     </div>
 </div>
