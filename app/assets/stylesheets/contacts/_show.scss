@@ -6,6 +6,7 @@
         }
     }
     .full-name-and-group {
+        background: white;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -16,6 +17,7 @@
         }
     }
     .contact-fields {
+        background: white;
         display: flex;
         flex-direction: column;
         .contact-field {

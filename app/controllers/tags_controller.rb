@@ -2,6 +2,7 @@ class TagsController < ApplicationController
     def create
         @tag = Tag.new(tag_params)
         @tag.user = current_user
+        @tag.color = Tag::COLORS.sample if @tag.color.empty?
         if @tag.save
             flash[:notice] = "Successfully created!"
             redirect_back(fallback_location: "contacts/index")

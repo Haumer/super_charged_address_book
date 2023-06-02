@@ -47,6 +47,9 @@
         <% end %>
     </div>
     <div class="contact-profile-notes">
+        <div class="new-contact-note">
+            <%= render "notes/form", contact: @contact, note: Note.new %>
+        </div>
         <div class="notes">
             <% @contact.notes.each do |note| %>
                 <div class="note">
@@ -65,9 +68,6 @@
                     </div>
                 </div>
             <% end %>
-        </div>
-        <div class="new-contact-note">
-            <%= render "notes/form", contact: @contact, note: Note.new %>
         </div>
     </div>
     <%= render "group_contacts/form", contact: @contact, group_contact: GroupContact.new %>

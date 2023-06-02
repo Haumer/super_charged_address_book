@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
     def create
         @group = Group.new(group_params)
         @group.user = current_user
+        @group.color = Group::COLORS.sample if @group.color.empty?
         if @group.save
             flash[:notice] = "Successfully created!"
             redirect_to contacts_path

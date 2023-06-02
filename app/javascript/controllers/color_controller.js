@@ -19,7 +19,8 @@ export default class extends Controller {
       "#74121D", 
       "#414770", 
       "#372248", 
-      "#345995"
+      "#345995",
+      "#000000"
     ]
     return textWhiteColors.includes(color)
   }

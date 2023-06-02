@@ -1,7 +1,7 @@
-<%= simple_form_for contact do |f| %>
+<%= simple_form_for contact, data: { controller: :color } do |f| %>
   <%= f.association :tags, 
     as: :check_boxes, 
-    collection: current_user.tags, 
+    collection: current_user.tags.pluck(:name, :color), 
     label: false, 
     input_html: { class: "tag-selector" },
     item_wrapper_class: 'tag-item' %>

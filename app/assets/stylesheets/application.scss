@@ -17,14 +17,6 @@
 @import "contacts/index";
 @import "notes/index";
 
-.mini-font {
-    font-size: 10px;
-}
-
-.font-italic {
-    font-style: italic
-}
-
 a {
     text-decoration: none;
     color: inherit;
@@ -46,11 +38,9 @@ a {
 }
 .group-wrapper,
 .contact-profile-wrapper {
-    min-height: calc(100vh - 106px);
+    overflow: scroll;
+    height: calc(100vh - 3rem);
     background: white;
     padding: 2rem;
     border-radius: 1rem;
-}
-.hidden { 
-    display: none;
 }
