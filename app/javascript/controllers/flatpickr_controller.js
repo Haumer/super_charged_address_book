@@ -8,6 +8,9 @@ export default class extends Controller {
   static targets = [ "selectDate" ]
 
   connect() {
-    flatpickr(this.selectDateTarget, {})
+    flatpickr(this.selectDateTarget, {
+      minDate: "today",
+      inline: true
+    })
   }
 }

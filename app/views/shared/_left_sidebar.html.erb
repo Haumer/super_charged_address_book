@@ -13,7 +13,11 @@
         Home
     <% end %>
     <div class="sidebar-links">
-        <% if check_action('new') || check_action('edit') || check_action('show') %>
+        <% if check_controller_action('reminders', 'new') %>
+            <%= link_to params[:contact_id].present? ? contact_path(params[:contact_id]) : contacts_path, class: "sidebar-link back-link" do %>
+                <i class="fa-light fa-arrow-left"></i> Back
+            <% end %>
+        <% elsif check_action('new') || check_action('edit') || check_action('show') %>
             <%= link_to contacts_path, class: "sidebar-link back-link" do %>
                 <i class="fa-light fa-arrow-left"></i> Back
             <% end %>

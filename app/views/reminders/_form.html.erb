@@ -1,17 +1,19 @@
-<%= simple_form_for @reminder, data: { controller: "flatpickr" } do |f| %>
+<%= simple_form_for @reminder, data: { controller: "flatpickr checkbox" } do |f| %>
   <div class="fields">
-      <%= f.input :interval, as: :radio_buttons,
-                  input_html: { class: "tag-selector" },
-                  item_wrapper_class: 'tag-item',
-                  collection: Reminder::INTERVALS,
-                  label: false %>
       <%= f.input :target_date, 
         as: :string, 
         input_html: { data: { flatpickr_target: "selectDate" } },
         label: false,
-        placeholder: "When do you want to be reminded?" %>
+        placeholder: "Select a Date",
+        autofocus: true %>
+      <%= f.input :interval, as: :radio_buttons,
+                  input_html: { class: "tag-selector", 
+                  data: { action: "click->checkbox#uncheck" } },
+                  label_html: { data: { checkbox_target: "checkBoxListen" } },
+                  item_wrapper_class: 'tag-item',
+                  collection: Reminder::INTERVALS,
+                  label: false %>
   </div>
-  <%= f.input :reoccurring %>
   <% if @reminder.new_record? %>
     <%= f.simple_fields_for @contact_reminder do |sf| %>
         <% if pre_selected_contact_id %>
@@ -36,6 +38,14 @@
 <% end %>
 
 <style>
+.reminder_target_date {
+  display: flex;
+  justify-content: center;
+}
+
+.reminder_target_date > .flatpickr-input {
+  display: none;
+}
 .reminder_interval > legend {
   display: none;
 }

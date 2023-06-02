@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_22_221047) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_02_122539) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,7 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_221047) do
     t.bigint "user_id", null: false
     t.date "target_date"
     t.date "actual_date"
-    t.integer "interval", default: 30
+    t.integer "interval", default: -1
     t.boolean "reoccurring", default: true
     t.boolean "active", default: true
     t.boolean "contacted", default: false

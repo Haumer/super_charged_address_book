@@ -8,14 +8,14 @@ class Reminder < ApplicationRecord
 
   INTERVALS = [
     ["Once", -1],
-    ["Every Day", 1], 
-    ["Twice A week", 3], 
-    ["Once A Week", 7], 
+    ["Daily", 1], 
+    ["Twice a Week", 3], 
+    ["Weekly", 7], 
     ["Every Two Weeks", 14], 
-    ["Once A Month", 30],
+    ["Monthy", 30],
     ["Every 3 Months", 90],
     ["Every 6 Months", 182],
-    ["Every Year", 365],
+    ["Yearly", 365],
   ]
 
   def self.next_bday(bday, additional_years: 0)

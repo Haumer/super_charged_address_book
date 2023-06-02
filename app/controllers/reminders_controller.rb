@@ -31,6 +31,7 @@ class RemindersController < ApplicationController
     def create
         @reminder = Reminder.new(reminder_params)
         @reminder.user = current_user
+        @reminder.reoccurring = @reminder.interval >= 1
         if @reminder.save
             @contact = Contact.find(contact_reminder_params[:contact_id])
             @contact_reminder = ContactReminder.create(
