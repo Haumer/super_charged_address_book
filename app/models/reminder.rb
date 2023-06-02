@@ -8,7 +8,7 @@ class Reminder < ApplicationRecord
 
   INTERVALS = [
     ["Once", -1],
-    ["Daily", 1], 
+    ["Daily", 1],
     ["Twice a Week", 3], 
     ["Weekly", 7], 
     ["Every Two Weeks", 14], 

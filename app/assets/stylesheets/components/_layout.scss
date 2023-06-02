@@ -21,8 +21,9 @@
 
 @media (max-width: 800px) {
     .app-container {
+        overflow: scroll;
         display: block;
-        padding: 0.1rem;
+        padding: 0;
     }
     .center-container {
         width:100%;
