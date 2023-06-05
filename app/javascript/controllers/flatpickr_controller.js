@@ -12,10 +12,10 @@ export default class extends Controller {
     })
   }
   isNewReminderForm() {
-    return location.pathname === "/reminders/new"
+    return location.pathname.includes("/reminders/new")
   }
   formMinDate() {
-    location.pathname.includes("/contacts") ? new Date(1900, 1, 1) : "today"
+    return location.pathname.includes("/contacts") ? new Date(1900, 1, 1) : "today"
   }
 
   setWidth() {

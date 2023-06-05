@@ -41,6 +41,7 @@ class RemindersController < ApplicationController
             flash[:notice] = "Successfully created!"
             redirect_to @contact
         else
+            @contact_reminder = ContactReminder.new
             render :new
         end
     end
